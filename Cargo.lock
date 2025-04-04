@@ -6440,9 +6440,10 @@ dependencies = [
 name = "spl-token-metadata"
 version = "0.1.0"
 dependencies = [
- "serde",
- "serde_json",
+ "borsh",
+ "borsh-derive",
  "solana-program 0.1.4",
+ "spl-token 3.5.0",
 ]
 
 [[package]]

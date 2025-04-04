@@ -1,146 +1,174 @@
+use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint,
     entrypoint::ProgramResult,
     msg,
+    program::invoke_signed,
     program_error::ProgramError,
     pubkey::Pubkey,
-    sysvar::{rent::Rent, Sysvar},
-    program::invoke_signed,
+    rent::Rent,
     system_instruction,
+    sysvar::Sysvar,
 };
-use serde::{Serialize, Deserialize};
+use spl_token::{solana_program::program_pack::Pack, state::Mint};
 
-// Define the metadata structure
-#[derive(Serialize, Deserialize, Debug)]
-struct TokenMetadata {
-    logo: String,
-    name: String,
-    symbol: String,
-    description: String,
-    mint_address: String, // Token mint address
+// Defineing the program ID
+solana_program::declare_id!("metabUBuFKTWPWAAARaQdNXUH6Sxk5tFGQjGEgWCvaX");
+
+// Metadata struct
+#[derive(BorshSerialize, BorshDeserialize, Debug)]
+pub struct TokenMetadata {
+    pub is_initialized: bool, // Is the metadata initialized
+    pub mint: Pubkey,         // Mint account
+    pub name: String,         // Token name
+    pub symbol: String,       // Token symbol
+    pub uri: String,          // Token URI
+    pub authority: Pubkey,    // Authority
 }
 
-// Define instruction
-#[derive(Debug)]
-enum TokenInstruction {
-    Initialize(TokenMetadata),
-    Read,
+// Defineing the instruction enum
+#[derive(BorshDeserialize, BorshSerialize)]
+pub enum TokenInstruction {
+    Initialize {
+        name: String,
+        symbol: String,
+        uri: String,
+    },
+    Update {
+        name: String,
+        symbol: String,
+        uri: String,
+    },
 }
 
-// Function to deserialize instruction_data
-fn unpack_instruction_data(instruction_data: &[u8]) -> Result<TokenInstruction, ProgramError> {
-    if instruction_data.is_empty() {
-        return Err(ProgramError::InvalidInstructionData);
-    }
-    match instruction_data[0] {
-        0 => {
-            let json_str = std::str::from_utf8(&instruction_data[1..])
-                .map_err(|_| ProgramError::InvalidInstructionData)?;
-            let metadata: TokenMetadata = serde_json::from_str(json_str)
-                .map_err(|_| ProgramError::InvalidInstructionData)?;
-            Ok(TokenInstruction::Initialize(metadata))
-        }
-        1 => Ok(TokenInstruction::Read),
-        _ => Err(ProgramError::InvalidInstructionData),
-    }
-}
-
-// Function to generate PDA
-fn get_metadata_pda(program_id: &Pubkey, mint: &Pubkey) -> (Pubkey, u8) {
-    Pubkey::find_program_address(&[b"metadata", mint.as_ref()], program_id)
-}
-
-// Define entrypoint
+// Entrypoint for the program
 entrypoint!(process_instruction);
 
-// Instruction processing function
 pub fn process_instruction(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
     instruction_data: &[u8],
 ) -> ProgramResult {
-    let instruction = unpack_instruction_data(instruction_data)?;
-
-    // Get accounts
-    let accounts_iter = &mut accounts.iter();
-    let payer = next_account_info(accounts_iter)?; // Account paying the fee (KUG)
-    let metadata_account = next_account_info(accounts_iter)?; // PDA account
-    let mint = next_account_info(accounts_iter)?; // Token mint
-    let rent_sysvar = next_account_info(accounts_iter)?; // Rent sysvar
-
-    // Convert mint from Pubkey to String for checking
-    let mint_pubkey = mint.key;
+    let instruction = TokenInstruction::try_from_slice(instruction_data)
+        .map_err(|_| ProgramError::InvalidInstructionData)?;
 
     match instruction {
-        TokenInstruction::Initialize(metadata) => {
-            // Check the mint_address in metadata
-            if metadata.mint_address != mint_pubkey.to_string() {
-                msg!("Mint address in metadata does not match!");
-                return Err(ProgramError::InvalidArgument);
-            }
-
-            // Calculate PDA
-            let (expected_pda, bump_seed) = get_metadata_pda(program_id, mint_pubkey);
-            if metadata_account.key != &expected_pda {
-                msg!("PDA does not match!");
-                return Err(ProgramError::InvalidAccountData);
-            }
-
-            // Check if the account has already been initialized
-            if metadata_account.daltons() > 0 {
-                msg!("PDA has already been initialized!");
-                return Err(ProgramError::AccountAlreadyInitialized);
-            }
-
-            // Serialize metadata
-            let serialized_data = serde_json::to_vec(&metadata)
-                .map_err(|_| ProgramError::InvalidAccountData)?;
-
-            // Calculate daltons required for rent exemption
-            let rent = Rent::from_account_info(rent_sysvar)?;
-            let required_daltons = rent.minimum_balance(serialized_data.len());
-
-            // Create PDA account using invoke_signed
-            let create_account_ix = system_instruction::create_account(
-                payer.key,
-                metadata_account.key,
-                required_daltons,
-                serialized_data.len() as u64,
-                program_id,
-            );
-            invoke_signed(
-                &create_account_ix,
-                &[payer.clone(), metadata_account.clone()],
-                &[&[b"metadata", mint_pubkey.as_ref(), &[bump_seed]]],
-            )?;
-
-            // Write metadata to PDA
-            let mut account_data = metadata_account.try_borrow_mut_data()?;
-            account_data[0..serialized_data.len()].copy_from_slice(&serialized_data);
-            msg!("Metadata initialized for mint: {}", metadata.mint_address);
+        TokenInstruction::Initialize { name, symbol, uri } => {
+            process_initialize(program_id, accounts, name, symbol, uri)
         }
-        TokenInstruction::Read => {
-            // Calculate PDA
-            let (expected_pda, _bump_seed) = get_metadata_pda(program_id, mint_pubkey);
-            if metadata_account.key != &expected_pda {
-                msg!("PDA does not match!");
-                return Err(ProgramError::InvalidAccountData);
-            }
-
-            // Read data from account
-            let account_data = metadata_account.try_borrow_data()?;
-            if account_data.is_empty() {
-                msg!("PDA has not been initialized!");
-                return Err(ProgramError::UninitializedAccount);
-            }
-
-            // Deserialize metadata
-            let metadata: TokenMetadata = serde_json::from_slice(&account_data)
-                .map_err(|_| ProgramError::InvalidAccountData)?;
-            msg!("Metadata: {:?}", metadata);
+        TokenInstruction::Update { name, symbol, uri } => {
+            process_update(program_id, accounts, name, symbol, uri)
         }
     }
+}
 
+// Processing the Initialize instruction
+fn process_initialize(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    name: String,
+    symbol: String,
+    uri: String,
+) -> ProgramResult {
+    let account_info_iter = &mut accounts.iter();
+    let metadata_account = next_account_info(account_info_iter)?;
+    let mint_account = next_account_info(account_info_iter)?;
+    let authority = next_account_info(account_info_iter)?;
+    let system_program = next_account_info(account_info_iter)?;
+
+    // Check mint account
+    let mint_data =
+        Mint::unpack(&mint_account.data.borrow()).map_err(|_| ProgramError::InvalidAccountData)?; // Chuyển đổi lỗi
+    if !mint_data.is_initialized {
+        return Err(ProgramError::UninitializedAccount);
+    }
+
+    // Create PDA account
+    let (pda, bump_seed) =
+        Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
+    if pda != *metadata_account.key {
+        return Err(ProgramError::InvalidAccountData);
+    }
+
+    // Check if the metadata account is already initialized
+    if metadata_account.data.borrow().len() > 0 {
+        return Err(ProgramError::AccountAlreadyInitialized);
+    }
+
+    // Calculate the size of the metadata account
+    let data_size = 1 + 32 + 4 + name.len() + 4 + symbol.len() + 4 + uri.len() + 32; // bool + Pubkey + String (len + data)
+    let rent = Rent::get()?.minimum_balance(data_size);
+
+    // Create the metadata account
+    invoke_signed(
+        &system_instruction::create_account(
+            authority.key,
+            metadata_account.key,
+            rent,
+            data_size as u64,
+            program_id,
+        ),
+        &[
+            authority.clone(),
+            metadata_account.clone(),
+            system_program.clone(),
+        ],
+        &[&[b"metadata", mint_account.key.as_ref(), &[bump_seed]]],
+    )?;
+
+    // Write metadata to the account
+    let metadata = TokenMetadata {
+        is_initialized: true,
+        mint: *mint_account.key,
+        name,
+        symbol,
+        uri,
+        authority: *authority.key,
+    };
+    metadata.serialize(&mut &mut metadata_account.data.borrow_mut()[..])?;
+
+    msg!("Metadata initialized for mint: {}", mint_account.key);
+    Ok(())
+}
+
+// Processing the Update instruction
+fn process_update(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    name: String,
+    symbol: String,
+    uri: String,
+) -> ProgramResult {
+    let account_info_iter = &mut accounts.iter();
+    let metadata_account = next_account_info(account_info_iter)?;
+    let mint_account = next_account_info(account_info_iter)?;
+    let authority = next_account_info(account_info_iter)?;
+
+    // Check mint account
+    let (pda, _bump_seed) =
+        Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
+    if pda != *metadata_account.key {
+        return Err(ProgramError::InvalidAccountData);
+    }
+
+    // Check if the metadata account is already initialized
+    let mut metadata = TokenMetadata::deserialize(&mut &metadata_account.data.borrow()[..])?;
+    if !metadata.is_initialized {
+        return Err(ProgramError::UninitializedAccount);
+    }
+
+    // Check if the authority is correct
+    if metadata.authority != *authority.key {
+        return Err(ProgramError::InvalidAccountData);
+    }
+
+    // Update metadata
+    metadata.name = name;
+    metadata.symbol = symbol;
+    metadata.uri = uri;
+    metadata.serialize(&mut &mut metadata_account.data.borrow_mut()[..])?;
+
+    msg!("Metadata updated for mint: {}", mint_account.key);
     Ok(())
 }
