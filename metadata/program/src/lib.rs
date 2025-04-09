@@ -79,7 +79,7 @@ fn process_initialize(
 
     // Check mint account
     let mint_data =
-        Mint::unpack(&mint_account.data.borrow()).map_err(|_| ProgramError::InvalidAccountData)?; // Chuyển đổi lỗi
+        Mint::unpack(&mint_account.data.borrow()).map_err(|_| ProgramError::InvalidAccountData)?; // Handle conversion error
     if !mint_data.is_initialized {
         return Err(ProgramError::UninitializedAccount);
     }
