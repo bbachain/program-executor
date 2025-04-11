@@ -1,3 +1,5 @@
+use crate::{instruction::TokenInstruction, state::TokenMetadata};
+
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
@@ -12,7 +14,9 @@ use solana_program::{
 };
 use spl_token::{solana_program::program_pack::Pack, state::Mint};
 
-use crate::{instruction::TokenInstruction, state::TokenMetadata};
+const MAX_NAME_LEN: usize = 32;
+const MAX_SYMBOL_LEN: usize = 10;
+const MAX_URI_LEN: usize = 200;
 
 pub struct Processor;
 impl Processor {
@@ -33,6 +37,31 @@ impl Processor {
         }
     }
 
+    /**
+     * Validates the metadata fields for length.
+     * 
+     * @param name: The name of the token.
+     * @param symbol: The symbol of the token.
+     * @param uri: The URI of the token.
+     * @return: ProgramResult indicating success or failure.
+     * 
+     */
+    fn validate_metadata_fields(name: &str, symbol: &str, uri: &str) -> ProgramResult {
+        if name.len() > MAX_NAME_LEN {
+            msg!("Error: name too long");
+            return Err(ProgramError::InvalidInstructionData);
+        }
+        if symbol.len() > MAX_SYMBOL_LEN {
+            msg!("Error: symbol too long");
+            return Err(ProgramError::InvalidInstructionData);
+        }
+        if uri.len() > MAX_URI_LEN {
+            msg!("Error: uri too long");
+            return Err(ProgramError::InvalidInstructionData);
+        }
+        Ok(())
+    }
+
     // Processing the Initialize instruction
     fn process_initialize(
         program_id: &Pubkey,
@@ -41,6 +70,9 @@ impl Processor {
         symbol: String,
         uri: String,
     ) -> ProgramResult {
+        // Validate the metadata fields
+        Self::validate_metadata_fields(&name, &symbol, &uri)?;
+
         let account_info_iter = &mut accounts.iter();
         let metadata_account = next_account_info(account_info_iter)?;
         let mint_account = next_account_info(account_info_iter)?;
@@ -62,7 +94,7 @@ impl Processor {
         }
 
         // Check if the metadata account is already initialized
-        if metadata_account.data.borrow().len() > 0 {
+        if !metadata_account.data_is_empty() {
             return Err(ProgramError::AccountAlreadyInitialized);
         }
 
@@ -110,6 +142,9 @@ impl Processor {
         symbol: String,
         uri: String,
     ) -> ProgramResult {
+        // Validate the metadata fields
+        Self::validate_metadata_fields(&name, &symbol, &uri)?;
+
         let account_info_iter = &mut accounts.iter();
         let metadata_account = next_account_info(account_info_iter)?;
         let mint_account = next_account_info(account_info_iter)?;
