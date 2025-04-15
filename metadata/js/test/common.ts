@@ -8,6 +8,4 @@ export async function getConnection(): Promise<Connection> {
     return connection;
 }
 
-export const TEST_PROGRAM_ID = process.env.TEST_PROGRAM_ID
-    ? new PublicKey(process.env.TEST_PROGRAM_ID)
-    : PROGRAM_ID;
+export const TEST_PROGRAM_ID = process.env.TEST_PROGRAM_ID ? new PublicKey(process.env.TEST_PROGRAM_ID) : PROGRAM_ID;
