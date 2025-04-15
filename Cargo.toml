@@ -19,6 +19,7 @@ members = [
   "governance/chat/program",
   "libraries/math",
   "memo/program",
+  "metadata/program",
   "name-service/program",
   "record/program",
   "shared-memory/program",
