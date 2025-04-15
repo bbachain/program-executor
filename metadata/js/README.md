@@ -32,7 +32,7 @@ import {
   Keypair,
   PublicKey,
   clusterApiUrl
-} from "@solana/web3.js";
+} from "@bbachain/web3.js";
 
 const connection = new Connection(clusterApiUrl("testnet"));
 const payer = Keypair.generate(); // Or load from file
@@ -102,7 +102,7 @@ Fetches and deserializes the on-chain metadata.
 
 - This library uses **Borsh** for serialization (compatible with the Rust program).
 - Metadata is stored in a PDA derived from `[b"metadata", mint]`.
-- Compatible with any Solana cluster, including BBAChain (mainnet, testnet and localnet).
+- Compatible with any BBAChain cluster, including mainnet, testnet and localnet.
 
 ---
 
