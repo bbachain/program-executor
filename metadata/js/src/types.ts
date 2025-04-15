@@ -7,9 +7,3 @@ export type TokenMetadata = {
     uri: string;
     authority: PublicKey;
 };
-
-export type InitializeArgs = {
-    name: string;
-    symbol: string;
-    uri: string;
-};

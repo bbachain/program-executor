@@ -7,8 +7,10 @@ import {
     sendAndConfirmTransaction,
     Signer,
 } from '@bbachain/web3.js';
+import { METADATA_SEED, PROGRAM_ID } from './constants';
+import { deserializeMetadata } from './deserialize';
 import { encodeInitializeInstruction, encodeUpdateInstruction } from './instructions';
-import { PROGRAM_ID, METADATA_SEED } from './constants';
+import { TokenMetadata } from './types';
 
 export async function getMetadataPDA(mint: PublicKey): Promise<[PublicKey, number]> {
     return await PublicKey.findProgramAddress([Buffer.from(METADATA_SEED), mint.toBuffer()], PROGRAM_ID);
@@ -61,4 +63,13 @@ export async function updateMetadata(
 
     const tx = new Transaction().add(ix);
     return await sendAndConfirmTransaction(connection, tx, [payer]);
+}
+
+export async function readMetadata(connection: Connection, mint: PublicKey): Promise<TokenMetadata | null> {
+    const [metadataPDA] = await getMetadataPDA(mint);
+    const accountInfo = await connection.getAccountInfo(metadataPDA);
+
+    if (!accountInfo) return null;
+
+    return deserializeMetadata(accountInfo.data);
 }
