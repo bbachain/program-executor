@@ -102,7 +102,7 @@ Fetches and deserializes the on-chain metadata.
 
 - This library uses **Borsh** for serialization (compatible with the Rust program).
 - Metadata is stored in a PDA derived from `[b"metadata", mint]`.
-- Compatible with any bbachain cluster, including mainnet, testnet and localnet.
+- Compatible with any BBAChain cluster, including mainnet, testnet and localnet.
 
 ---
 
