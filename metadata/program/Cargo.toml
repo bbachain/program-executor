@@ -10,5 +10,5 @@ crate-type = ["cdylib", "lib"]
 [dependencies]
 borsh = "0.9"
 borsh-derive = "0.9"
+thiserror = "1.0"
 solana-program = {version = "0.1.4", path = "../../../bbachain/sdk/program"}
-spl-token = { version = "3.5", path = "../../token/program", features = ["no-entrypoint"] }

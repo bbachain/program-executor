@@ -8,7 +8,7 @@ This library supports:
 - Reading token metadata
 
 > Compatible with SPL Token standard and deployed custom program at:  
-> `metabUBuFKTWPWAAARaQdNXUH6Sxk5tFGQjGEgWCvaX`
+> `metaAig5QsCBSfstkwqPQxzdjXdUB8JxjfvtvEPNe3F`
 
 ---
 

@@ -1,4 +1,4 @@
-use crate::{instruction::TokenInstruction, state::TokenMetadata};
+use crate::{error::MetadataError, instruction::TokenInstruction, state::TokenMetadata};
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
@@ -12,7 +12,6 @@ use solana_program::{
     system_instruction,
     sysvar::Sysvar,
 };
-use spl_token::{solana_program::program_pack::Pack, state::Mint};
 
 const MAX_NAME_LEN: usize = 32;
 const MAX_SYMBOL_LEN: usize = 10;
@@ -39,25 +38,25 @@ impl Processor {
 
     /**
      * Validates the metadata fields for length.
-     * 
+     *
      * @param name: The name of the token.
      * @param symbol: The symbol of the token.
      * @param uri: The URI of the token.
      * @return: ProgramResult indicating success or failure.
-     * 
+     *
      */
     fn validate_metadata_fields(name: &str, symbol: &str, uri: &str) -> ProgramResult {
         if name.len() > MAX_NAME_LEN {
             msg!("Error: name too long");
-            return Err(ProgramError::InvalidInstructionData);
+            return Err(MetadataError::NameTooLong.into());
         }
         if symbol.len() > MAX_SYMBOL_LEN {
             msg!("Error: symbol too long");
-            return Err(ProgramError::InvalidInstructionData);
+            return Err(MetadataError::SymbolTooLong.into());
         }
         if uri.len() > MAX_URI_LEN {
             msg!("Error: uri too long");
-            return Err(ProgramError::InvalidInstructionData);
+            return Err(MetadataError::UriTooLong.into());
         }
         Ok(())
     }
@@ -79,23 +78,16 @@ impl Processor {
         let authority = next_account_info(account_info_iter)?;
         let system_program = next_account_info(account_info_iter)?;
 
-        // Check mint account
-        let mint_data = Mint::unpack(&mint_account.data.borrow())
-            .map_err(|_| ProgramError::InvalidAccountData)?; // Handle conversion error
-        if !mint_data.is_initialized {
-            return Err(ProgramError::UninitializedAccount);
+        // Check if the metadata account is already initialized
+        if !metadata_account.data_is_empty() {
+            return Err(MetadataError::AlreadyInitialized.into());
         }
 
         // Create PDA account
         let (pda, bump_seed) =
             Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
         if pda != *metadata_account.key {
-            return Err(ProgramError::InvalidAccountData);
-        }
-
-        // Check if the metadata account is already initialized
-        if !metadata_account.data_is_empty() {
-            return Err(ProgramError::AccountAlreadyInitialized);
+            return Err(MetadataError::InvalidPda.into());
         }
 
         // Calculate the size of the metadata account
@@ -121,7 +113,6 @@ impl Processor {
 
         // Write metadata to the account
         let metadata = TokenMetadata {
-            is_initialized: true,
             mint: *mint_account.key,
             name,
             symbol,
@@ -154,18 +145,18 @@ impl Processor {
         let (pda, _bump_seed) =
             Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
         if pda != *metadata_account.key {
-            return Err(ProgramError::InvalidAccountData);
+            return Err(MetadataError::InvalidPda.into());
         }
 
         // Check if the metadata account is already initialized
         let mut metadata = TokenMetadata::deserialize(&mut &metadata_account.data.borrow()[..])?;
-        if !metadata.is_initialized {
-            return Err(ProgramError::UninitializedAccount);
+        if metadata.name.is_empty() || metadata.symbol.is_empty() || metadata.uri.is_empty() {
+            return Err(MetadataError::NotInitialized.into());
         }
 
         // Check if the authority is correct
         if metadata.authority != *authority.key {
-            return Err(ProgramError::InvalidAccountData);
+            return Err(MetadataError::InvalidAuthority.into());
         }
 
         // Update metadata
