@@ -6443,7 +6443,7 @@ dependencies = [
  "borsh",
  "borsh-derive",
  "solana-program 0.1.4",
- "spl-token 3.5.0",
+ "thiserror",
 ]
 
 [[package]]
