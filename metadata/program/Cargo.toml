@@ -7,6 +7,10 @@ license = "MIT"
 [lib]
 crate-type = ["cdylib", "lib"]
 
+[features]
+no-entrypoint = []
+test-bpf = []
+
 [dependencies]
 borsh = "0.9"
 borsh-derive = "0.9"
