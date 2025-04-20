@@ -1,62 +1,41 @@
-import * as borsh from 'borsh';
+import { PublicKey, SystemProgram, TransactionInstruction } from '@bbachain/web3.js';
+import { InitializeArgs, UpdateArgs, TokenInstructionKind } from './types';
+import { PROGRAM_ID } from './constants';
+import { assertFieldLengths, deriveMetadataPDA, encodeInstructionData } from './helpers';
 
-class InitializeInstruction {
-    instruction = 0;
-    name: string;
-    symbol: string;
-    uri: string;
+/** Builds an `Initialize` instruction. */
+export const createInitializeMetadataIx = (
+    payer: PublicKey,
+    mint: PublicKey,
+    args: InitializeArgs
+): TransactionInstruction => {
+    assertFieldLengths(args);
 
-    constructor(props: { name: string; symbol: string; uri: string }) {
-        this.name = props.name;
-        this.symbol = props.symbol;
-        this.uri = props.uri;
-    }
-}
+    const [metadataPda] = deriveMetadataPDA(mint);
+    const keys = [
+        { pubkey: metadataPda, isSigner: false, isWritable: true },
+        { pubkey: mint, isSigner: false, isWritable: false },
+        { pubkey: payer, isSigner: true, isWritable: true },
+        { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+    ];
+    const data = encodeInstructionData(TokenInstructionKind.Initialize, args);
+    return new TransactionInstruction({ programId: PROGRAM_ID, keys, data });
+};
 
-class UpdateInstruction {
-    instruction = 1;
-    name: string;
-    symbol: string;
-    uri: string;
+/** Builds an `Update` instruction. */
+export const createUpdateMetadataIx = (
+    authority: PublicKey,
+    mint: PublicKey,
+    args: UpdateArgs
+): TransactionInstruction => {
+    assertFieldLengths(args);
 
-    constructor(props: { name: string; symbol: string; uri: string }) {
-        this.name = props.name;
-        this.symbol = props.symbol;
-        this.uri = props.uri;
-    }
-}
-
-const InstructionSchema = new Map<any, any>([
-    [
-        InitializeInstruction,
-        {
-            kind: 'struct',
-            fields: [
-                ['instruction', 'u8'],
-                ['name', 'string'],
-                ['symbol', 'string'],
-                ['uri', 'string'],
-            ],
-        },
-    ],
-    [
-        UpdateInstruction,
-        {
-            kind: 'struct',
-            fields: [
-                ['instruction', 'u8'],
-                ['name', 'string'],
-                ['symbol', 'string'],
-                ['uri', 'string'],
-            ],
-        },
-    ],
-]);
-
-export function encodeInitializeInstruction(name: string, symbol: string, uri: string): Buffer {
-    return Buffer.from(borsh.serialize(InstructionSchema, new InitializeInstruction({ name, symbol, uri })));
-}
-
-export function encodeUpdateInstruction(name: string, symbol: string, uri: string): Buffer {
-    return Buffer.from(borsh.serialize(InstructionSchema, new UpdateInstruction({ name, symbol, uri })));
-}
+    const [metadataPda] = deriveMetadataPDA(mint);
+    const keys = [
+        { pubkey: metadataPda, isSigner: false, isWritable: true },
+        { pubkey: mint, isSigner: false, isWritable: false },
+        { pubkey: authority, isSigner: true, isWritable: false },
+    ];
+    const data = encodeInstructionData(TokenInstructionKind.Update, args);
+    return new TransactionInstruction({ programId: PROGRAM_ID, keys, data });
+};
