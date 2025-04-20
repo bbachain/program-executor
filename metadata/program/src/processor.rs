@@ -1,11 +1,3 @@
-use crate::{
-    constants::{MAX_NAME_LEN, MAX_SYMBOL_LEN, MAX_URI_LEN, METADATA_SEED},
-    error::MetadataError,
-    instruction::TokenInstruction,
-    state::TokenMetadata,
-    utils::derive_metadata_pda,
-};
-
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
@@ -17,6 +9,14 @@ use solana_program::{
     rent::Rent,
     system_instruction,
     sysvar::Sysvar,
+};
+
+use crate::{
+    constants::{MAX_NAME_LEN, MAX_SYMBOL_LEN, MAX_URI_LEN, METADATA_SEED},
+    error::MetadataError,
+    instruction::TokenInstruction,
+    state::TokenMetadata,
+    utils::derive_metadata_pda,
 };
 
 pub struct Processor;
