@@ -1,4 +1,10 @@
-use crate::{error::MetadataError, instruction::TokenInstruction, state::TokenMetadata};
+use crate::{
+    constants::{MAX_NAME_LEN, MAX_SYMBOL_LEN, MAX_URI_LEN, METADATA_SEED},
+    error::MetadataError,
+    instruction::TokenInstruction,
+    state::TokenMetadata,
+    utils::derive_metadata_pda,
+};
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
@@ -12,10 +18,6 @@ use solana_program::{
     system_instruction,
     sysvar::Sysvar,
 };
-
-const MAX_NAME_LEN: usize = 32;
-const MAX_SYMBOL_LEN: usize = 10;
-const MAX_URI_LEN: usize = 200;
 
 pub struct Processor;
 impl Processor {
@@ -84,8 +86,7 @@ impl Processor {
         }
 
         // Create PDA account
-        let (pda, bump_seed) =
-            Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
+        let (pda, bump_seed) = derive_metadata_pda(mint_account.key, program_id);
         if pda != *metadata_account.key {
             return Err(MetadataError::InvalidPda.into());
         }
@@ -108,7 +109,7 @@ impl Processor {
                 metadata_account.clone(),
                 system_program.clone(),
             ],
-            &[&[b"metadata", mint_account.key.as_ref(), &[bump_seed]]],
+            &[&[METADATA_SEED, mint_account.key.as_ref(), &[bump_seed]]],
         )?;
 
         // Write metadata to the account
@@ -142,8 +143,7 @@ impl Processor {
         let authority = next_account_info(account_info_iter)?;
 
         // Check mint account
-        let (pda, _bump_seed) =
-            Pubkey::find_program_address(&[b"metadata", mint_account.key.as_ref()], program_id);
+        let (pda, _bump_seed) = derive_metadata_pda(mint_account.key, program_id);
         if pda != *metadata_account.key {
             return Err(MetadataError::InvalidPda.into());
         }
