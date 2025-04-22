@@ -1,30 +1,37 @@
-use solana_program::program_error::ProgramError;
+use num_derive::FromPrimitive;
+use solana_program::{
+    decode_error::DecodeError,
+    msg,
+    program_error::{PrintProgramError, ProgramError},
+};
 use thiserror::Error;
 
-#[derive(Error, Debug, Copy, Clone)]
+/// Errors that may be returned by the Metadata program.
+#[derive(Clone, Debug, Eq, Error, FromPrimitive, PartialEq)]
 pub enum MetadataError {
-    #[error("Name too long")]
-    NameTooLong,
-    #[error("Symbol too long")]
-    SymbolTooLong,
-    #[error("URI too long")]
-    UriTooLong,
-    #[error("Metadata account already initialized")]
-    AlreadyInitialized,
-    #[error("Metadata account not initialized")]
-    NotInitialized,
-    #[error("Invalid metadata authority")]
-    InvalidAuthority,
-    #[error("Invalid metadata PDA")]
-    InvalidPda,
-    #[error("Mint is not initialized")]
-    UninitializedMint,
-    #[error("Deserialization failed")]
-    DeserializationError,
+    /// 0 Failed to unpack instruction data
+    #[error("")]
+    InstructionUnpackError,
+
+    /// 189
+    #[error("Invalid or removed instruction")]
+    InvalidInstruction,
+}
+
+impl PrintProgramError for MetadataError {
+    fn print<E>(&self) {
+        msg!(&self.to_string());
+    }
 }
 
 impl From<MetadataError> for ProgramError {
     fn from(e: MetadataError) -> Self {
         ProgramError::Custom(e as u32)
+    }
+}
+
+impl<T> DecodeError<T> for MetadataError {
+    fn type_of() -> &'static str {
+        "Metadata Error"
     }
 }
