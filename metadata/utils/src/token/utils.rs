@@ -21,3 +21,18 @@ fn unpack_coption_key(src: &[u8; 36]) -> Result<COption<Pubkey>, ProgramError> {
         _ => Err(ProgramError::InvalidAccountData),
     }
 }
+
+/// cheap method to just get supply off a mint without unpacking whole object
+pub fn get_mint_decimals(account_info: &AccountInfo) -> Result<u8, ProgramError> {
+    // In token program, 36, 8, 1, 1, is the layout, where the first 1 is decimals u8.
+    // so we start at 36.
+    let data = account_info.try_borrow_data()?;
+
+    // If we don't check this and an empty account is passed in, we get a panic when
+    // we try to index into the data.
+    if data.is_empty() {
+        return Err(ProgramError::InvalidAccountData);
+    }
+
+    Ok(data[44])
+}
