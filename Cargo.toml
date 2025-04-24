@@ -20,6 +20,7 @@ members = [
   "libraries/math",
   "memo/program",
   "metadata/program",
+  "metadata/utils",
   "name-service/program",
   "record/program",
   "shared-memory/program",

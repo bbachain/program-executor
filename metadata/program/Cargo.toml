@@ -22,4 +22,5 @@ serde_with = { version = "1.14.0", optional = true }
 shank = { version = "0.3.0" }
 solana-program = {version = "0.1.4", path = "../../../bbachain/sdk/program"}
 spl-token-metadata-context-derive = { version = "0.1.0", path = "../macro" }
+spl-utils = { version = "0.1.0", path = "../utils" }
 thiserror = "1.0"
