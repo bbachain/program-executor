@@ -7,10 +7,13 @@ use spl_utils::{
     token::{get_mint_authority, SPL_TOKEN_PROGRAM_IDS},
 };
 
+use super::*;
 use crate::{
     assertions::{assert_mint_authority_matches_mint, assert_owner_in},
-    error::MetadataError,
-    state::{Collection, CollectionDetails, Data, Key, Metadata, TokenStandard, Uses, MAX_METADATA_LEN, PREFIX},
+    state::{
+        Collection, CollectionDetails, Data, Key, Metadata, TokenStandard,
+        Uses, MAX_METADATA_LEN, PREFIX,
+    },
 };
 
 // This equals the program address of the metadata program:
@@ -106,6 +109,8 @@ pub fn process_create_metadata_accounts_logic(
         MAX_METADATA_LEN,
         metadata_authority_signer_seeds,
     )?;
+
+    let mut metadata = Metadata::from_account_info(metadata_account_info)?;
 
     // TODO:
 
