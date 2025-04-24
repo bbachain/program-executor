@@ -1,5 +1,7 @@
 use super::*;
 
+use crate::utils::metadata::meta_deser_unchecked;
+
 pub const MAX_NAME_LENGTH: usize = 32;
 
 pub const MAX_SYMBOL_LENGTH: usize = 10;
@@ -74,4 +76,50 @@ pub struct Metadata {
     pub collection_details: Option<CollectionDetails>,
     /// Uses
     pub uses: Option<Uses>,
+}
+
+impl Metadata {
+    pub fn save(&self, data: &mut [u8]) -> Result<(), BorshError> {
+        let mut bytes = Vec::with_capacity(MAX_METADATA_LEN);
+        borsh::to_writer(&mut bytes, self)?;
+        data[..bytes.len()].copy_from_slice(&bytes);
+        Ok(())
+    }
+}
+
+impl Default for Metadata {
+    fn default() -> Self {
+        Metadata {
+            key: Key::Metadata,
+            update_authority: Pubkey::default(),
+            mint: Pubkey::default(),
+            data: Data::default(),
+            primary_sale_happened: false,
+            is_mutable: false,
+            token_standard: None,
+            collection: None,
+            collection_details: None,
+            uses: None,
+        }
+    }
+}
+
+impl TokenMetadataAccount for Metadata {
+    fn key() -> Key {
+        Key::Metadata
+    }
+
+    fn size() -> usize {
+        0
+    }
+}
+
+// We have a custom implementation of BorshDeserialize for Metadata because of corrupted metadata issues
+// caused by resizing of the Creators array. We use a custom `meta_deser_unchecked` function
+// that has fallback values for corrupted fields.
+impl borsh::de::BorshDeserialize for Metadata {
+    fn deserialize(buf: &mut &[u8]) -> ::core::result::Result<Self, BorshError> {
+        let md = meta_deser_unchecked(buf)?;
+        Ok(md)
+    }
 }

@@ -1,3 +1,4 @@
+use borsh::{maybestd::io::Error as BorshError, BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_option::COption, pubkey::Pubkey,
 };
@@ -9,7 +10,7 @@ use spl_utils::{
 use crate::{
     assertions::{assert_mint_authority_matches_mint, assert_owner_in},
     error::MetadataError,
-    state::{CollectionDetails, Data, Metadata, TokenStandard, MAX_METADATA_LEN, PREFIX},
+    state::{Collection, CollectionDetails, Data, Key, Metadata, TokenStandard, Uses, MAX_METADATA_LEN, PREFIX},
 };
 
 // This equals the program address of the metadata program:
@@ -109,4 +110,63 @@ pub fn process_create_metadata_accounts_logic(
     // TODO:
 
     Ok(())
+}
+
+// Custom deserialization function to handle NFTs with corrupted data.
+// This function is used in a custom deserialization implementation for the
+// `Metadata` struct, so should never have `msg` macros used in it as it may be used client side
+// either in tests or client code.
+//
+// It does not check `Key` type or account length and should only be used through the custom functions
+// `from_account_info` and `deserialize` implemented on the Metadata struct.
+pub fn meta_deser_unchecked(buf: &mut &[u8]) -> Result<Metadata, BorshError> {
+    // Metadata corruption shouldn't appear until after edition_nonce.
+    let key: Key = BorshDeserialize::deserialize(buf)?;
+    let update_authority: Pubkey = BorshDeserialize::deserialize(buf)?;
+    let mint: Pubkey = BorshDeserialize::deserialize(buf)?;
+    let data: Data = BorshDeserialize::deserialize(buf)?;
+    let primary_sale_happened: bool = BorshDeserialize::deserialize(buf)?;
+    let is_mutable: bool = BorshDeserialize::deserialize(buf)?;
+    let edition_nonce: Option<u8> = BorshDeserialize::deserialize(buf)?;
+
+    // V1.2
+    let token_standard_res: Result<Option<TokenStandard>, BorshError> =
+        BorshDeserialize::deserialize(buf);
+    let collection_res: Result<Option<Collection>, BorshError> = BorshDeserialize::deserialize(buf);
+    let uses_res: Result<Option<Uses>, BorshError> = BorshDeserialize::deserialize(buf);
+
+    // V1.3
+    let collection_details_res: Result<Option<CollectionDetails>, BorshError> =
+        BorshDeserialize::deserialize(buf);
+
+    // We can have accidentally valid, but corrupted data, particularly on the Collection struct,
+    // so to increase probability of catching errors. If any of these deserializations fail, set
+    // all values to None.
+    let (token_standard, collection, uses) = match (token_standard_res, collection_res, uses_res) {
+        (Ok(token_standard_res), Ok(collection_res), Ok(uses_res)) => {
+            (token_standard_res, collection_res, uses_res)
+        }
+        _ => (None, None, None),
+    };
+
+    // V1.3
+    let collection_details = match collection_details_res {
+        Ok(details) => details,
+        Err(_) => None,
+    };
+
+    let metadata = Metadata {
+        key,
+        update_authority,
+        mint,
+        data,
+        primary_sale_happened,
+        is_mutable,
+        token_standard,
+        collection,
+        collection_details,
+        uses,
+    };
+
+    Ok(metadata)
 }

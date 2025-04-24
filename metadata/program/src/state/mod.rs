@@ -27,8 +27,8 @@ use {
 };
 
 // Re-export constants to maintain compatibility.
-use crate::{assertions::assert_owned_by, error::MetadataError, ID};
 pub use crate::pda::PREFIX;
+use crate::{assertions::assert_owned_by, error::MetadataError, ID};
 
 #[repr(C)]
 #[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
@@ -46,14 +46,6 @@ impl From<u8> for TokenStandard {
             _ => panic!("Invalid token standard"),
         }
     }
-}
-
-#[repr(C)]
-#[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
-#[derive(BorshSerialize, BorshDeserialize, PartialEq, Eq, Debug, Clone, Copy, FromPrimitive)]
-pub enum Key {
-    Uninitialized,
-    Metadata,
 }
 
 pub trait TokenMetadataAccount: BorshDeserialize {
@@ -107,4 +99,12 @@ where {
 
         Ok(ua)
     }
+}
+
+#[repr(C)]
+#[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
+#[derive(BorshSerialize, BorshDeserialize, PartialEq, Eq, Debug, Clone, Copy, FromPrimitive)]
+pub enum Key {
+    Uninitialized,
+    Metadata,
 }
