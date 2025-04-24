@@ -1,16 +1,17 @@
-use borsh::{maybestd::io::Error as BorshError, BorshDeserialize, BorshSerialize};
+use borsh::{maybestd::io::Error as BorshError, BorshDeserialize};
 use solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_option::COption, pubkey::Pubkey,
 };
 use spl_utils::{
     create_or_allocate_account_raw,
-    token::{get_mint_authority, get_mint_decimals, SPL_TOKEN_PROGRAM_IDS},
+    token::{get_mint_authority, SPL_TOKEN_PROGRAM_IDS},
 };
 
 use super::*;
 use crate::{
     assertions::{
-        assert_mint_authority_matches_mint, assert_owner_in, metadata::assert_data_valid,
+        assert_mint_authority_matches_mint, assert_owner_in,
+        collection::assert_collection_update_is_valid, metadata::assert_data_valid,
         uses::assert_valid_use,
     },
     state::{
@@ -123,7 +124,8 @@ pub fn process_create_metadata_accounts_logic(
         update_authority_info.is_signer,
     )?;
 
-    let mint_decimals = get_mint_decimals(mint_info)?;
+    // DISABLED: This is a security risk.
+    // let mint_decimals = get_mint_decimals(mint_info)?;
 
     metadata.mint = *mint_info.key;
     metadata.key = Key::Metadata;
@@ -133,6 +135,36 @@ pub fn process_create_metadata_accounts_logic(
 
     assert_valid_use(&data.uses, &None)?;
     metadata.uses = data.uses;
+
+    assert_collection_update_is_valid(&None, &data.collection)?;
+    metadata.collection = data.collection;
+
+    // We want to create new collections with a size of zero but we use the
+    // collection details enum for forward compatibility.
+    if let Some(details) = collection_details {
+        match details {
+            #[allow(deprecated)]
+            CollectionDetails::V1 { size: _size } => {
+                metadata.collection_details = Some(CollectionDetails::V1 { size: 0 });
+            }
+            CollectionDetails::V2 { padding: _ } => {
+                metadata.collection_details = Some(CollectionDetails::V2 { padding: [0; 8] });
+            }
+        }
+    } else {
+        metadata.collection_details = None;
+    }
+
+    metadata.token_standard = if add_token_standard {
+        token_standard_override.or(Some(TokenStandard::Fungible))
+    } else {
+        None
+    };
+
+    puff_out_data_fields(&mut metadata);
+
+    // saves the changes to the account data
+    metadata.save(&mut metadata_account_info.data.borrow_mut())?;
 
     Ok(())
 }
@@ -145,22 +177,18 @@ pub fn process_create_metadata_accounts_logic(
 // It does not check `Key` type or account length and should only be used through the custom functions
 // `from_account_info` and `deserialize` implemented on the Metadata struct.
 pub fn meta_deser_unchecked(buf: &mut &[u8]) -> Result<Metadata, BorshError> {
-    // Metadata corruption shouldn't appear until after edition_nonce.
     let key: Key = BorshDeserialize::deserialize(buf)?;
     let update_authority: Pubkey = BorshDeserialize::deserialize(buf)?;
     let mint: Pubkey = BorshDeserialize::deserialize(buf)?;
     let data: Data = BorshDeserialize::deserialize(buf)?;
     let primary_sale_happened: bool = BorshDeserialize::deserialize(buf)?;
     let is_mutable: bool = BorshDeserialize::deserialize(buf)?;
-    let edition_nonce: Option<u8> = BorshDeserialize::deserialize(buf)?;
 
-    // V1.2
     let token_standard_res: Result<Option<TokenStandard>, BorshError> =
         BorshDeserialize::deserialize(buf);
     let collection_res: Result<Option<Collection>, BorshError> = BorshDeserialize::deserialize(buf);
     let uses_res: Result<Option<Uses>, BorshError> = BorshDeserialize::deserialize(buf);
 
-    // V1.3
     let collection_details_res: Result<Option<CollectionDetails>, BorshError> =
         BorshDeserialize::deserialize(buf);
 
@@ -174,7 +202,6 @@ pub fn meta_deser_unchecked(buf: &mut &[u8]) -> Result<Metadata, BorshError> {
         _ => (None, None, None),
     };
 
-    // V1.3
     let collection_details = match collection_details_res {
         Ok(details) => details,
         Err(_) => None,

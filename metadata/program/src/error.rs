@@ -9,6 +9,9 @@ use thiserror::Error;
 /// Errors that may be returned by the Metadata program.
 #[derive(Clone, Debug, Eq, Error, FromPrimitive, PartialEq)]
 pub enum MetadataError {
+    #[error("This instruction was deprecated in a previous release and is now removed")]
+    Removed, //For the curious we cannot get rid of an instruction in the enum or move them or it will break our api, this is a friendly way to get rid of them
+
     /// 0 Failed to unpack instruction data
     #[error("")]
     InstructionUnpackError,
@@ -88,6 +91,9 @@ pub enum MetadataError {
 
     #[error("Cannot Change Remaining or Available uses after the first use")]
     CannotChangeUsesAfterFirstUse,
+
+    #[error("Collection cannot be verified in this instruction")]
+    CollectionCannotBeVerifiedInThisInstruction,
 
     /// 189
     #[error("Invalid or removed instruction")]

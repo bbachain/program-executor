@@ -7,7 +7,10 @@ use solana_program::{
     pubkey::Pubkey,
 };
 
-use crate::{error::MetadataError, instruction::MetadataInstruction};
+use crate::{
+    error::MetadataError,
+    instruction::{MetadataInstruction, CREATE_METADATA_ACCOUNT_V0, UPDATE_METADATA_ACCOUNT_V0},
+};
 
 /// Process Token Metadata instructions.
 ///
@@ -25,8 +28,16 @@ pub fn process_instruction<'a>(
         .split_first()
         .ok_or(MetadataError::InvalidInstruction)?;
 
-    let instruction = MetadataInstruction::try_from_slice(input)
-        .map_err(|_| ProgramError::InvalidInstructionData)?;
+    let instruction = match MetadataInstruction::try_from_slice(input) {
+        Ok(instruction) => Ok(instruction),
+        // Check if the instruction is a deprecated instruction.
+        Err(_) => match *variant {
+            CREATE_METADATA_ACCOUNT_V0 | UPDATE_METADATA_ACCOUNT_V0 => {
+                Err(MetadataError::Removed.into())
+            }
+            _ => Err(ProgramError::InvalidInstructionData),
+        },
+    }?;
 
     match instruction {
         MetadataInstruction::CreateMetadataAccount(args) => {

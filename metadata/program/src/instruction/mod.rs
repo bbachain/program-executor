@@ -7,6 +7,10 @@ use serde::{Deserialize, Serialize};
 use shank::ShankInstruction;
 use spl_token_metadata_context_derive::AccountContext;
 
+// Deprecated Instructions
+pub const CREATE_METADATA_ACCOUNT_V0: u8 = 0;
+pub const UPDATE_METADATA_ACCOUNT_V0: u8 = 1;
+
 #[repr(C)]
 #[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
 /// Instructions supported by the Metadata program.

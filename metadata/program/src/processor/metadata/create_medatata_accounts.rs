@@ -51,6 +51,5 @@ pub fn process_create_metadata_accounts<'a>(
     )?;
 
     // Set fee flag after metadata account is created.
-    set_fee_flag(metadata_account_info);
-    todo!("process_create_metadata_accounts");
+    set_fee_flag(metadata_account_info)
 }
