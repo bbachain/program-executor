@@ -4,15 +4,18 @@ use solana_program::{
 };
 use spl_utils::{
     create_or_allocate_account_raw,
-    token::{get_mint_authority, SPL_TOKEN_PROGRAM_IDS},
+    token::{get_mint_authority, get_mint_decimals, SPL_TOKEN_PROGRAM_IDS},
 };
 
 use super::*;
 use crate::{
-    assertions::{assert_mint_authority_matches_mint, assert_owner_in},
+    assertions::{
+        assert_mint_authority_matches_mint, assert_owner_in, metadata::assert_data_valid,
+        uses::assert_valid_use,
+    },
     state::{
-        Collection, CollectionDetails, Data, Key, Metadata, TokenStandard,
-        Uses, MAX_METADATA_LEN, PREFIX,
+        Collection, CollectionDetails, Data, Key, Metadata, TokenStandard, Uses, MAX_METADATA_LEN,
+        PREFIX,
     },
 };
 
@@ -112,7 +115,24 @@ pub fn process_create_metadata_accounts_logic(
 
     let mut metadata = Metadata::from_account_info(metadata_account_info)?;
 
-    // TODO:
+    assert_data_valid(
+        &data,
+        &update_authority_key,
+        &metadata,
+        allow_direct_creator_writes,
+        update_authority_info.is_signer,
+    )?;
+
+    let mint_decimals = get_mint_decimals(mint_info)?;
+
+    metadata.mint = *mint_info.key;
+    metadata.key = Key::Metadata;
+    metadata.data = data.clone();
+    metadata.is_mutable = is_mutable;
+    metadata.update_authority = update_authority_key;
+
+    assert_valid_use(&data.uses, &None)?;
+    metadata.uses = data.uses;
 
     Ok(())
 }

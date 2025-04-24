@@ -41,6 +41,18 @@ pub enum MetadataError {
     #[error("URI too long")]
     UriTooLong,
 
+    /// Basis points cannot be more than 10000
+    #[error("Basis points cannot be more than 10000")]
+    InvalidBasisPoints,
+
+    /// Creators list too long
+    #[error("Creators list too long")]
+    CreatorsTooLong,
+
+    /// Creators must be at least one if set
+    #[error("Creators must be at least one if set")]
+    CreatorsMustBeAtleastOne,
+
     /// 10 - Mint authority provided does not match the authority on the mint
     #[error("Mint authority provided does not match the authority on the mint")]
     InvalidMintAuthority,
@@ -48,6 +60,34 @@ pub enum MetadataError {
     /// Data type mismatch
     #[error("Data type mismatch")]
     DataTypeMismatch,
+
+    #[error("Verified creators cannot be removed.")]
+    CannotRemoveVerifiedCreator,
+
+    /// You cannot unilaterally verify another creator, they must sign
+    #[error("You cannot unilaterally verify another creator, they must sign")]
+    CannotVerifyAnotherCreator,
+
+    /// You cannot unilaterally unverify another creator
+    #[error("You cannot unilaterally unverify another creator")]
+    CannotUnverifyAnotherCreator,
+
+    /// Share total must equal 100 for creator array
+    #[error("Share total must equal 100 for creator array")]
+    ShareTotalMustBe100,
+
+    /// 60 - No duplicate creator addresses
+    #[error("No duplicate creator addresses")]
+    DuplicateCreatorAddress,
+
+    #[error("This use method is invalid")]
+    InvalidUseMethod,
+
+    #[error("Cannot Change Use Method after the first use")]
+    CannotChangeUseMethodAfterFirstUse,
+
+    #[error("Cannot Change Remaining or Available uses after the first use")]
+    CannotChangeUsesAfterFirstUse,
 
     /// 189
     #[error("Invalid or removed instruction")]
