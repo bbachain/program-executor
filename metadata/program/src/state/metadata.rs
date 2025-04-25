@@ -14,7 +14,6 @@ pub const MAX_METADATA_LEN: usize = 1 // key
 + MAX_DATA_SIZE
 + 1              // primary sale
 + 1              // mutable
-+ 9              // nonce (pretty sure this only needs to be 2)
 + 2              // token standard
 + 34             // collection
 + 10             // collection details
