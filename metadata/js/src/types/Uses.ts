@@ -16,5 +16,5 @@ export const usesBeet = new beet.BeetArgsStruct<Uses>(
     ['remaining', beet.u64],
     ['total', beet.u64],
   ],
-  'Uses',
+  'Uses'
 );

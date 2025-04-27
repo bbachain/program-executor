@@ -26,7 +26,7 @@ export const CreateMetadataAccountStruct = new beet.FixableBeetArgsStruct<
     ['instructionDiscriminator', beet.u8],
     ['createMetadataAccountArgs', createMetadataAccountArgsBeet],
   ],
-  'CreateMetadataAccountInstructionArgs',
+  'CreateMetadataAccountInstructionArgs'
 );
 /**
  * Accounts required by the _CreateMetadataAccount_ instruction
@@ -68,7 +68,7 @@ export const createMetadataAccountInstructionDiscriminator = 0;
 export function createCreateMetadataAccountInstruction(
   accounts: CreateMetadataAccountInstructionAccounts,
   args: CreateMetadataAccountInstructionArgs,
-  programId = new web3.PublicKey(PROGRAM_ADDRESS),
+  programId = new web3.PublicKey(PROGRAM_ADDRESS)
 ) {
   const [data] = CreateMetadataAccountStruct.serialize({
     instructionDiscriminator: createMetadataAccountInstructionDiscriminator,

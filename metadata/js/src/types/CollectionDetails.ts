@@ -25,7 +25,7 @@ export type CollectionDetailsRecord = {
 export type CollectionDetails = beet.DataEnumKeyAsKind<CollectionDetailsRecord>;
 
 export const isCollectionDetailsV1 = (
-  x: CollectionDetails,
+  x: CollectionDetails
 ): x is CollectionDetails & { __kind: 'V1' } => x.__kind === 'V1';
 
 /**
@@ -36,7 +36,7 @@ export const collectionDetailsBeet = beet.dataEnum<CollectionDetailsRecord>([
     'V1',
     new beet.BeetArgsStruct<CollectionDetailsRecord['V1']>(
       [['size', beet.u64]],
-      'CollectionDetailsRecord["V1"]',
+      'CollectionDetailsRecord["V1"]'
     ),
   ],
 ]) as beet.FixableBeet<CollectionDetails, CollectionDetails>;

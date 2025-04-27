@@ -11,7 +11,6 @@ export enum TokenStandard {
 /**
  * @category userTypes
  */
-export const tokenStandardBeet = beet.fixedScalarEnum(TokenStandard) as beet.FixedSizeBeet<
-  TokenStandard,
+export const tokenStandardBeet = beet.fixedScalarEnum(
   TokenStandard
->;
+) as beet.FixedSizeBeet<TokenStandard, TokenStandard>;

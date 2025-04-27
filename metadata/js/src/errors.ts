@@ -22,7 +22,10 @@ export class InstructionUnpackErrorError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x0, () => new InstructionUnpackErrorError());
-createErrorFromNameLookup.set('InstructionUnpackError', () => new InstructionUnpackErrorError());
+createErrorFromNameLookup.set(
+  'InstructionUnpackError',
+  () => new InstructionUnpackErrorError()
+);
 
 /**
  * InstructionPackError: ''
@@ -42,7 +45,10 @@ export class InstructionPackErrorError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x1, () => new InstructionPackErrorError());
-createErrorFromNameLookup.set('InstructionPackError', () => new InstructionPackErrorError());
+createErrorFromNameLookup.set(
+  'InstructionPackError',
+  () => new InstructionPackErrorError()
+);
 
 /**
  * NotRentExempt: 'Lamport balance below rent-exempt threshold'
@@ -82,7 +88,10 @@ export class AlreadyInitializedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3, () => new AlreadyInitializedError());
-createErrorFromNameLookup.set('AlreadyInitialized', () => new AlreadyInitializedError());
+createErrorFromNameLookup.set(
+  'AlreadyInitialized',
+  () => new AlreadyInitializedError()
+);
 
 /**
  * Uninitialized: 'Uninitialized'
@@ -114,7 +123,9 @@ export class InvalidMetadataKeyError extends Error {
   readonly code: number = 0x5;
   readonly name: string = 'InvalidMetadataKey';
   constructor() {
-    super(" Metadata's key must match seed of ['metadata', program id, mint] provided");
+    super(
+      " Metadata's key must match seed of ['metadata', program id, mint] provided"
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, InvalidMetadataKeyError);
     }
@@ -122,7 +133,10 @@ export class InvalidMetadataKeyError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x5, () => new InvalidMetadataKeyError());
-createErrorFromNameLookup.set('InvalidMetadataKey', () => new InvalidMetadataKeyError());
+createErrorFromNameLookup.set(
+  'InvalidMetadataKey',
+  () => new InvalidMetadataKeyError()
+);
 
 /**
  * InvalidEditionKey: 'Edition's key must match seed of ['metadata', program id, name, 'edition'] provided'
@@ -134,7 +148,9 @@ export class InvalidEditionKeyError extends Error {
   readonly code: number = 0x6;
   readonly name: string = 'InvalidEditionKey';
   constructor() {
-    super("Edition's key must match seed of ['metadata', program id, name, 'edition'] provided");
+    super(
+      "Edition's key must match seed of ['metadata', program id, name, 'edition'] provided"
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, InvalidEditionKeyError);
     }
@@ -142,7 +158,10 @@ export class InvalidEditionKeyError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x6, () => new InvalidEditionKeyError());
-createErrorFromNameLookup.set('InvalidEditionKey', () => new InvalidEditionKeyError());
+createErrorFromNameLookup.set(
+  'InvalidEditionKey',
+  () => new InvalidEditionKeyError()
+);
 
 /**
  * UpdateAuthorityIncorrect: 'Update Authority given does not match'
@@ -164,7 +183,7 @@ export class UpdateAuthorityIncorrectError extends Error {
 createErrorFromCodeLookup.set(0x7, () => new UpdateAuthorityIncorrectError());
 createErrorFromNameLookup.set(
   'UpdateAuthorityIncorrect',
-  () => new UpdateAuthorityIncorrectError(),
+  () => new UpdateAuthorityIncorrectError()
 );
 
 /**
@@ -187,7 +206,7 @@ export class UpdateAuthorityIsNotSignerError extends Error {
 createErrorFromCodeLookup.set(0x8, () => new UpdateAuthorityIsNotSignerError());
 createErrorFromNameLookup.set(
   'UpdateAuthorityIsNotSigner',
-  () => new UpdateAuthorityIsNotSignerError(),
+  () => new UpdateAuthorityIsNotSignerError()
 );
 
 /**
@@ -208,7 +227,10 @@ export class NotMintAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x9, () => new NotMintAuthorityError());
-createErrorFromNameLookup.set('NotMintAuthority', () => new NotMintAuthorityError());
+createErrorFromNameLookup.set(
+  'NotMintAuthority',
+  () => new NotMintAuthorityError()
+);
 
 /**
  * InvalidMintAuthority: 'Mint authority provided does not match the authority on the mint'
@@ -228,7 +250,10 @@ export class InvalidMintAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa, () => new InvalidMintAuthorityError());
-createErrorFromNameLookup.set('InvalidMintAuthority', () => new InvalidMintAuthorityError());
+createErrorFromNameLookup.set(
+  'InvalidMintAuthority',
+  () => new InvalidMintAuthorityError()
+);
 
 /**
  * NameTooLong: 'Name too long'
@@ -298,22 +323,26 @@ createErrorFromNameLookup.set('UriTooLong', () => new UriTooLongError());
  */
 export class UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError extends Error {
   readonly code: number = 0xe;
-  readonly name: string = 'UpdateAuthorityMustBeEqualToMetadataAuthorityAndSigner';
+  readonly name: string =
+    'UpdateAuthorityMustBeEqualToMetadataAuthorityAndSigner';
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError);
+      Error.captureStackTrace(
+        this,
+        UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError
+      );
     }
   }
 }
 
 createErrorFromCodeLookup.set(
   0xe,
-  () => new UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError(),
+  () => new UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError()
 );
 createErrorFromNameLookup.set(
   'UpdateAuthorityMustBeEqualToMetadataAuthorityAndSigner',
-  () => new UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError(),
+  () => new UpdateAuthorityMustBeEqualToMetadataAuthorityAndSignerError()
 );
 
 /**
@@ -353,10 +382,13 @@ export class EditionsMustHaveExactlyOneTokenError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x10, () => new EditionsMustHaveExactlyOneTokenError());
+createErrorFromCodeLookup.set(
+  0x10,
+  () => new EditionsMustHaveExactlyOneTokenError()
+);
 createErrorFromNameLookup.set(
   'EditionsMustHaveExactlyOneToken',
-  () => new EditionsMustHaveExactlyOneTokenError(),
+  () => new EditionsMustHaveExactlyOneTokenError()
 );
 
 /**
@@ -379,7 +411,7 @@ export class MaxEditionsMintedAlreadyError extends Error {
 createErrorFromCodeLookup.set(0x11, () => new MaxEditionsMintedAlreadyError());
 createErrorFromNameLookup.set(
   'MaxEditionsMintedAlready',
-  () => new MaxEditionsMintedAlreadyError(),
+  () => new MaxEditionsMintedAlreadyError()
 );
 
 /**
@@ -400,7 +432,10 @@ export class TokenMintToFailedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x12, () => new TokenMintToFailedError());
-createErrorFromNameLookup.set('TokenMintToFailed', () => new TokenMintToFailedError());
+createErrorFromNameLookup.set(
+  'TokenMintToFailed',
+  () => new TokenMintToFailedError()
+);
 
 /**
  * MasterRecordMismatch: ''
@@ -420,7 +455,10 @@ export class MasterRecordMismatchError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x13, () => new MasterRecordMismatchError());
-createErrorFromNameLookup.set('MasterRecordMismatch', () => new MasterRecordMismatchError());
+createErrorFromNameLookup.set(
+  'MasterRecordMismatch',
+  () => new MasterRecordMismatchError()
+);
 
 /**
  * DestinationMintMismatch: ''
@@ -440,7 +478,10 @@ export class DestinationMintMismatchError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x14, () => new DestinationMintMismatchError());
-createErrorFromNameLookup.set('DestinationMintMismatch', () => new DestinationMintMismatchError());
+createErrorFromNameLookup.set(
+  'DestinationMintMismatch',
+  () => new DestinationMintMismatchError()
+);
 
 /**
  * EditionAlreadyMinted: ''
@@ -460,7 +501,10 @@ export class EditionAlreadyMintedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x15, () => new EditionAlreadyMintedError());
-createErrorFromNameLookup.set('EditionAlreadyMinted', () => new EditionAlreadyMintedError());
+createErrorFromNameLookup.set(
+  'EditionAlreadyMinted',
+  () => new EditionAlreadyMintedError()
+);
 
 /**
  * PrintingMintDecimalsShouldBeZero: ''
@@ -479,10 +523,13 @@ export class PrintingMintDecimalsShouldBeZeroError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x16, () => new PrintingMintDecimalsShouldBeZeroError());
+createErrorFromCodeLookup.set(
+  0x16,
+  () => new PrintingMintDecimalsShouldBeZeroError()
+);
 createErrorFromNameLookup.set(
   'PrintingMintDecimalsShouldBeZero',
-  () => new PrintingMintDecimalsShouldBeZeroError(),
+  () => new PrintingMintDecimalsShouldBeZeroError()
 );
 
 /**
@@ -493,22 +540,26 @@ createErrorFromNameLookup.set(
  */
 export class OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError extends Error {
   readonly code: number = 0x17;
-  readonly name: string = 'OneTimePrintingAuthorizationMintDecimalsShouldBeZero';
+  readonly name: string =
+    'OneTimePrintingAuthorizationMintDecimalsShouldBeZero';
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError);
+      Error.captureStackTrace(
+        this,
+        OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError
+      );
     }
   }
 }
 
 createErrorFromCodeLookup.set(
   0x17,
-  () => new OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError(),
+  () => new OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError()
 );
 createErrorFromNameLookup.set(
   'OneTimePrintingAuthorizationMintDecimalsShouldBeZero',
-  () => new OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError(),
+  () => new OneTimePrintingAuthorizationMintDecimalsShouldBeZeroError()
 );
 
 /**
@@ -528,10 +579,13 @@ export class EditionMintDecimalsShouldBeZeroError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x18, () => new EditionMintDecimalsShouldBeZeroError());
+createErrorFromCodeLookup.set(
+  0x18,
+  () => new EditionMintDecimalsShouldBeZeroError()
+);
 createErrorFromNameLookup.set(
   'EditionMintDecimalsShouldBeZero',
-  () => new EditionMintDecimalsShouldBeZeroError(),
+  () => new EditionMintDecimalsShouldBeZeroError()
 );
 
 /**
@@ -552,7 +606,10 @@ export class TokenBurnFailedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x19, () => new TokenBurnFailedError());
-createErrorFromNameLookup.set('TokenBurnFailed', () => new TokenBurnFailedError());
+createErrorFromNameLookup.set(
+  'TokenBurnFailed',
+  () => new TokenBurnFailedError()
+);
 
 /**
  * TokenAccountOneTimeAuthMintMismatch: ''
@@ -571,10 +628,13 @@ export class TokenAccountOneTimeAuthMintMismatchError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x1a, () => new TokenAccountOneTimeAuthMintMismatchError());
+createErrorFromCodeLookup.set(
+  0x1a,
+  () => new TokenAccountOneTimeAuthMintMismatchError()
+);
 createErrorFromNameLookup.set(
   'TokenAccountOneTimeAuthMintMismatch',
-  () => new TokenAccountOneTimeAuthMintMismatchError(),
+  () => new TokenAccountOneTimeAuthMintMismatchError()
 );
 
 /**
@@ -595,7 +655,10 @@ export class DerivedKeyInvalidError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x1b, () => new DerivedKeyInvalidError());
-createErrorFromNameLookup.set('DerivedKeyInvalid', () => new DerivedKeyInvalidError());
+createErrorFromNameLookup.set(
+  'DerivedKeyInvalid',
+  () => new DerivedKeyInvalidError()
+);
 
 /**
  * PrintingMintMismatch: 'The Printing mint does not match that on the master edition!'
@@ -615,7 +678,10 @@ export class PrintingMintMismatchError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x1c, () => new PrintingMintMismatchError());
-createErrorFromNameLookup.set('PrintingMintMismatch', () => new PrintingMintMismatchError());
+createErrorFromNameLookup.set(
+  'PrintingMintMismatch',
+  () => new PrintingMintMismatchError()
+);
 
 /**
  * OneTimePrintingAuthMintMismatch: 'The One Time Printing Auth mint does not match that on the master edition!'
@@ -627,17 +693,22 @@ export class OneTimePrintingAuthMintMismatchError extends Error {
   readonly code: number = 0x1d;
   readonly name: string = 'OneTimePrintingAuthMintMismatch';
   constructor() {
-    super('The One Time Printing Auth mint does not match that on the master edition!');
+    super(
+      'The One Time Printing Auth mint does not match that on the master edition!'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, OneTimePrintingAuthMintMismatchError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1d, () => new OneTimePrintingAuthMintMismatchError());
+createErrorFromCodeLookup.set(
+  0x1d,
+  () => new OneTimePrintingAuthMintMismatchError()
+);
 createErrorFromNameLookup.set(
   'OneTimePrintingAuthMintMismatch',
-  () => new OneTimePrintingAuthMintMismatchError(),
+  () => new OneTimePrintingAuthMintMismatchError()
 );
 
 /**
@@ -660,7 +731,7 @@ export class TokenAccountMintMismatchError extends Error {
 createErrorFromCodeLookup.set(0x1e, () => new TokenAccountMintMismatchError());
 createErrorFromNameLookup.set(
   'TokenAccountMintMismatch',
-  () => new TokenAccountMintMismatchError(),
+  () => new TokenAccountMintMismatchError()
 );
 
 /**
@@ -673,17 +744,22 @@ export class TokenAccountMintMismatchV2Error extends Error {
   readonly code: number = 0x1f;
   readonly name: string = 'TokenAccountMintMismatchV2';
   constructor() {
-    super('The mint of the token account does not match the master metadata mint!');
+    super(
+      'The mint of the token account does not match the master metadata mint!'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, TokenAccountMintMismatchV2Error);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1f, () => new TokenAccountMintMismatchV2Error());
+createErrorFromCodeLookup.set(
+  0x1f,
+  () => new TokenAccountMintMismatchV2Error()
+);
 createErrorFromNameLookup.set(
   'TokenAccountMintMismatchV2',
-  () => new TokenAccountMintMismatchV2Error(),
+  () => new TokenAccountMintMismatchV2Error()
 );
 
 /**
@@ -704,7 +780,10 @@ export class NotEnoughTokensError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x20, () => new NotEnoughTokensError());
-createErrorFromNameLookup.set('NotEnoughTokens', () => new NotEnoughTokensError());
+createErrorFromNameLookup.set(
+  'NotEnoughTokens',
+  () => new NotEnoughTokensError()
+);
 
 /**
  * PrintingMintAuthorizationAccountMismatch: ''
@@ -718,15 +797,21 @@ export class PrintingMintAuthorizationAccountMismatchError extends Error {
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, PrintingMintAuthorizationAccountMismatchError);
+      Error.captureStackTrace(
+        this,
+        PrintingMintAuthorizationAccountMismatchError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x21, () => new PrintingMintAuthorizationAccountMismatchError());
+createErrorFromCodeLookup.set(
+  0x21,
+  () => new PrintingMintAuthorizationAccountMismatchError()
+);
 createErrorFromNameLookup.set(
   'PrintingMintAuthorizationAccountMismatch',
-  () => new PrintingMintAuthorizationAccountMismatchError(),
+  () => new PrintingMintAuthorizationAccountMismatchError()
 );
 
 /**
@@ -741,15 +826,21 @@ export class AuthorizationTokenAccountOwnerMismatchError extends Error {
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, AuthorizationTokenAccountOwnerMismatchError);
+      Error.captureStackTrace(
+        this,
+        AuthorizationTokenAccountOwnerMismatchError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x22, () => new AuthorizationTokenAccountOwnerMismatchError());
+createErrorFromCodeLookup.set(
+  0x22,
+  () => new AuthorizationTokenAccountOwnerMismatchError()
+);
 createErrorFromNameLookup.set(
   'AuthorizationTokenAccountOwnerMismatch',
-  () => new AuthorizationTokenAccountOwnerMismatchError(),
+  () => new AuthorizationTokenAccountOwnerMismatchError()
 );
 
 /**
@@ -790,7 +881,10 @@ export class CreatorsTooLongError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x24, () => new CreatorsTooLongError());
-createErrorFromNameLookup.set('CreatorsTooLong', () => new CreatorsTooLongError());
+createErrorFromNameLookup.set(
+  'CreatorsTooLong',
+  () => new CreatorsTooLongError()
+);
 
 /**
  * CreatorsMustBeAtleastOne: 'Creators must be at least one if set'
@@ -812,7 +906,7 @@ export class CreatorsMustBeAtleastOneError extends Error {
 createErrorFromCodeLookup.set(0x25, () => new CreatorsMustBeAtleastOneError());
 createErrorFromNameLookup.set(
   'CreatorsMustBeAtleastOne',
-  () => new CreatorsMustBeAtleastOneError(),
+  () => new CreatorsMustBeAtleastOneError()
 );
 
 /**
@@ -833,7 +927,10 @@ export class MustBeOneOfCreatorsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x26, () => new MustBeOneOfCreatorsError());
-createErrorFromNameLookup.set('MustBeOneOfCreators', () => new MustBeOneOfCreatorsError());
+createErrorFromNameLookup.set(
+  'MustBeOneOfCreators',
+  () => new MustBeOneOfCreatorsError()
+);
 
 /**
  * NoCreatorsPresentOnMetadata: 'This metadata does not have creators'
@@ -852,10 +949,13 @@ export class NoCreatorsPresentOnMetadataError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x27, () => new NoCreatorsPresentOnMetadataError());
+createErrorFromCodeLookup.set(
+  0x27,
+  () => new NoCreatorsPresentOnMetadataError()
+);
 createErrorFromNameLookup.set(
   'NoCreatorsPresentOnMetadata',
-  () => new NoCreatorsPresentOnMetadataError(),
+  () => new NoCreatorsPresentOnMetadataError()
 );
 
 /**
@@ -876,7 +976,10 @@ export class CreatorNotFoundError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x28, () => new CreatorNotFoundError());
-createErrorFromNameLookup.set('CreatorNotFound', () => new CreatorNotFoundError());
+createErrorFromNameLookup.set(
+  'CreatorNotFound',
+  () => new CreatorNotFoundError()
+);
 
 /**
  * InvalidBasisPoints: 'Basis points cannot be more than 10000'
@@ -896,7 +999,10 @@ export class InvalidBasisPointsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x29, () => new InvalidBasisPointsError());
-createErrorFromNameLookup.set('InvalidBasisPoints', () => new InvalidBasisPointsError());
+createErrorFromNameLookup.set(
+  'InvalidBasisPoints',
+  () => new InvalidBasisPointsError()
+);
 
 /**
  * PrimarySaleCanOnlyBeFlippedToTrue: 'Primary sale can only be flipped to true and is immutable'
@@ -915,10 +1021,13 @@ export class PrimarySaleCanOnlyBeFlippedToTrueError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x2a, () => new PrimarySaleCanOnlyBeFlippedToTrueError());
+createErrorFromCodeLookup.set(
+  0x2a,
+  () => new PrimarySaleCanOnlyBeFlippedToTrueError()
+);
 createErrorFromNameLookup.set(
   'PrimarySaleCanOnlyBeFlippedToTrue',
-  () => new PrimarySaleCanOnlyBeFlippedToTrueError(),
+  () => new PrimarySaleCanOnlyBeFlippedToTrueError()
 );
 
 /**
@@ -958,10 +1067,13 @@ export class NoBalanceInAccountForAuthorizationError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x2c, () => new NoBalanceInAccountForAuthorizationError());
+createErrorFromCodeLookup.set(
+  0x2c,
+  () => new NoBalanceInAccountForAuthorizationError()
+);
 createErrorFromNameLookup.set(
   'NoBalanceInAccountForAuthorization',
-  () => new NoBalanceInAccountForAuthorizationError(),
+  () => new NoBalanceInAccountForAuthorizationError()
 );
 
 /**
@@ -982,7 +1094,10 @@ export class ShareTotalMustBe100Error extends Error {
 }
 
 createErrorFromCodeLookup.set(0x2d, () => new ShareTotalMustBe100Error());
-createErrorFromNameLookup.set('ShareTotalMustBe100', () => new ShareTotalMustBe100Error());
+createErrorFromNameLookup.set(
+  'ShareTotalMustBe100',
+  () => new ShareTotalMustBe100Error()
+);
 
 /**
  * ReservationExists: ''
@@ -1002,7 +1117,10 @@ export class ReservationExistsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x2e, () => new ReservationExistsError());
-createErrorFromNameLookup.set('ReservationExists', () => new ReservationExistsError());
+createErrorFromNameLookup.set(
+  'ReservationExists',
+  () => new ReservationExistsError()
+);
 
 /**
  * ReservationDoesNotExist: ''
@@ -1022,7 +1140,10 @@ export class ReservationDoesNotExistError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x2f, () => new ReservationDoesNotExistError());
-createErrorFromNameLookup.set('ReservationDoesNotExist', () => new ReservationDoesNotExistError());
+createErrorFromNameLookup.set(
+  'ReservationDoesNotExist',
+  () => new ReservationDoesNotExistError()
+);
 
 /**
  * ReservationNotSet: ''
@@ -1042,7 +1163,10 @@ export class ReservationNotSetError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x30, () => new ReservationNotSetError());
-createErrorFromNameLookup.set('ReservationNotSet', () => new ReservationNotSetError());
+createErrorFromNameLookup.set(
+  'ReservationNotSet',
+  () => new ReservationNotSetError()
+);
 
 /**
  * ReservationAlreadyMade: ''
@@ -1062,7 +1186,10 @@ export class ReservationAlreadyMadeError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x31, () => new ReservationAlreadyMadeError());
-createErrorFromNameLookup.set('ReservationAlreadyMade', () => new ReservationAlreadyMadeError());
+createErrorFromNameLookup.set(
+  'ReservationAlreadyMade',
+  () => new ReservationAlreadyMadeError()
+);
 
 /**
  * BeyondMaxAddressSize: ''
@@ -1082,7 +1209,10 @@ export class BeyondMaxAddressSizeError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x32, () => new BeyondMaxAddressSizeError());
-createErrorFromNameLookup.set('BeyondMaxAddressSize', () => new BeyondMaxAddressSizeError());
+createErrorFromNameLookup.set(
+  'BeyondMaxAddressSize',
+  () => new BeyondMaxAddressSizeError()
+);
 
 /**
  * NumericalOverflowError: 'NumericalOverflowError'
@@ -1102,7 +1232,10 @@ export class NumericalOverflowErrorError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x33, () => new NumericalOverflowErrorError());
-createErrorFromNameLookup.set('NumericalOverflowError', () => new NumericalOverflowErrorError());
+createErrorFromNameLookup.set(
+  'NumericalOverflowError',
+  () => new NumericalOverflowErrorError()
+);
 
 /**
  * ReservationBreachesMaximumSupply: ''
@@ -1121,10 +1254,13 @@ export class ReservationBreachesMaximumSupplyError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x34, () => new ReservationBreachesMaximumSupplyError());
+createErrorFromCodeLookup.set(
+  0x34,
+  () => new ReservationBreachesMaximumSupplyError()
+);
 createErrorFromNameLookup.set(
   'ReservationBreachesMaximumSupply',
-  () => new ReservationBreachesMaximumSupplyError(),
+  () => new ReservationBreachesMaximumSupplyError()
 );
 
 /**
@@ -1145,7 +1281,10 @@ export class AddressNotInReservationError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x35, () => new AddressNotInReservationError());
-createErrorFromNameLookup.set('AddressNotInReservation', () => new AddressNotInReservationError());
+createErrorFromNameLookup.set(
+  'AddressNotInReservation',
+  () => new AddressNotInReservationError()
+);
 
 /**
  * CannotVerifyAnotherCreator: 'You cannot unilaterally verify another creator, they must sign'
@@ -1164,10 +1303,13 @@ export class CannotVerifyAnotherCreatorError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x36, () => new CannotVerifyAnotherCreatorError());
+createErrorFromCodeLookup.set(
+  0x36,
+  () => new CannotVerifyAnotherCreatorError()
+);
 createErrorFromNameLookup.set(
   'CannotVerifyAnotherCreator',
-  () => new CannotVerifyAnotherCreatorError(),
+  () => new CannotVerifyAnotherCreatorError()
 );
 
 /**
@@ -1187,10 +1329,13 @@ export class CannotUnverifyAnotherCreatorError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x37, () => new CannotUnverifyAnotherCreatorError());
+createErrorFromCodeLookup.set(
+  0x37,
+  () => new CannotUnverifyAnotherCreatorError()
+);
 createErrorFromNameLookup.set(
   'CannotUnverifyAnotherCreator',
-  () => new CannotUnverifyAnotherCreatorError(),
+  () => new CannotUnverifyAnotherCreatorError()
 );
 
 /**
@@ -1231,7 +1376,10 @@ export class IncorrectOwnerError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x39, () => new IncorrectOwnerError());
-createErrorFromNameLookup.set('IncorrectOwner', () => new IncorrectOwnerError());
+createErrorFromNameLookup.set(
+  'IncorrectOwner',
+  () => new IncorrectOwnerError()
+);
 
 /**
  * PrintingWouldBreachMaximumSupply: ''
@@ -1250,10 +1398,13 @@ export class PrintingWouldBreachMaximumSupplyError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x3a, () => new PrintingWouldBreachMaximumSupplyError());
+createErrorFromCodeLookup.set(
+  0x3a,
+  () => new PrintingWouldBreachMaximumSupplyError()
+);
 createErrorFromNameLookup.set(
   'PrintingWouldBreachMaximumSupply',
-  () => new PrintingWouldBreachMaximumSupplyError(),
+  () => new PrintingWouldBreachMaximumSupplyError()
 );
 
 /**
@@ -1274,7 +1425,10 @@ export class DataIsImmutableError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3b, () => new DataIsImmutableError());
-createErrorFromNameLookup.set('DataIsImmutable', () => new DataIsImmutableError());
+createErrorFromNameLookup.set(
+  'DataIsImmutable',
+  () => new DataIsImmutableError()
+);
 
 /**
  * DuplicateCreatorAddress: 'No duplicate creator addresses'
@@ -1294,7 +1448,10 @@ export class DuplicateCreatorAddressError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3c, () => new DuplicateCreatorAddressError());
-createErrorFromNameLookup.set('DuplicateCreatorAddress', () => new DuplicateCreatorAddressError());
+createErrorFromNameLookup.set(
+  'DuplicateCreatorAddress',
+  () => new DuplicateCreatorAddressError()
+);
 
 /**
  * ReservationSpotsRemainingShouldMatchTotalSpotsAtStart: ''
@@ -1304,22 +1461,26 @@ createErrorFromNameLookup.set('DuplicateCreatorAddress', () => new DuplicateCrea
  */
 export class ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError extends Error {
   readonly code: number = 0x3d;
-  readonly name: string = 'ReservationSpotsRemainingShouldMatchTotalSpotsAtStart';
+  readonly name: string =
+    'ReservationSpotsRemainingShouldMatchTotalSpotsAtStart';
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError);
+      Error.captureStackTrace(
+        this,
+        ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError
+      );
     }
   }
 }
 
 createErrorFromCodeLookup.set(
   0x3d,
-  () => new ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError(),
+  () => new ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError()
 );
 createErrorFromNameLookup.set(
   'ReservationSpotsRemainingShouldMatchTotalSpotsAtStart',
-  () => new ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError(),
+  () => new ReservationSpotsRemainingShouldMatchTotalSpotsAtStartError()
 );
 
 /**
@@ -1340,7 +1501,10 @@ export class InvalidTokenProgramError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3e, () => new InvalidTokenProgramError());
-createErrorFromNameLookup.set('InvalidTokenProgram', () => new InvalidTokenProgramError());
+createErrorFromNameLookup.set(
+  'InvalidTokenProgram',
+  () => new InvalidTokenProgramError()
+);
 
 /**
  * DataTypeMismatch: 'Data type mismatch'
@@ -1360,7 +1524,10 @@ export class DataTypeMismatchError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3f, () => new DataTypeMismatchError());
-createErrorFromNameLookup.set('DataTypeMismatch', () => new DataTypeMismatchError());
+createErrorFromNameLookup.set(
+  'DataTypeMismatch',
+  () => new DataTypeMismatchError()
+);
 
 /**
  * BeyondAlottedAddressSize: ''
@@ -1382,7 +1549,7 @@ export class BeyondAlottedAddressSizeError extends Error {
 createErrorFromCodeLookup.set(0x40, () => new BeyondAlottedAddressSizeError());
 createErrorFromNameLookup.set(
   'BeyondAlottedAddressSize',
-  () => new BeyondAlottedAddressSizeError(),
+  () => new BeyondAlottedAddressSizeError()
 );
 
 /**
@@ -1403,7 +1570,10 @@ export class ReservationNotCompleteError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x41, () => new ReservationNotCompleteError());
-createErrorFromNameLookup.set('ReservationNotComplete', () => new ReservationNotCompleteError());
+createErrorFromNameLookup.set(
+  'ReservationNotComplete',
+  () => new ReservationNotCompleteError()
+);
 
 /**
  * TriedToReplaceAnExistingReservation: ''
@@ -1422,10 +1592,13 @@ export class TriedToReplaceAnExistingReservationError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x42, () => new TriedToReplaceAnExistingReservationError());
+createErrorFromCodeLookup.set(
+  0x42,
+  () => new TriedToReplaceAnExistingReservationError()
+);
 createErrorFromNameLookup.set(
   'TriedToReplaceAnExistingReservation',
-  () => new TriedToReplaceAnExistingReservationError(),
+  () => new TriedToReplaceAnExistingReservationError()
 );
 
 /**
@@ -1446,7 +1619,10 @@ export class InvalidOperationError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x43, () => new InvalidOperationError());
-createErrorFromNameLookup.set('InvalidOperation', () => new InvalidOperationError());
+createErrorFromNameLookup.set(
+  'InvalidOperation',
+  () => new InvalidOperationError()
+);
 
 /**
  * InvalidOwner: 'Invalid Owner'
@@ -1480,15 +1656,21 @@ export class PrintingMintSupplyMustBeZeroForConversionError extends Error {
   constructor() {
     super('Printing mint supply must be zero for conversion');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, PrintingMintSupplyMustBeZeroForConversionError);
+      Error.captureStackTrace(
+        this,
+        PrintingMintSupplyMustBeZeroForConversionError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x45, () => new PrintingMintSupplyMustBeZeroForConversionError());
+createErrorFromCodeLookup.set(
+  0x45,
+  () => new PrintingMintSupplyMustBeZeroForConversionError()
+);
 createErrorFromNameLookup.set(
   'PrintingMintSupplyMustBeZeroForConversion',
-  () => new PrintingMintSupplyMustBeZeroForConversionError(),
+  () => new PrintingMintSupplyMustBeZeroForConversionError()
 );
 
 /**
@@ -1503,15 +1685,21 @@ export class OneTimeAuthMintSupplyMustBeZeroForConversionError extends Error {
   constructor() {
     super('One Time Auth mint supply must be zero for conversion');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, OneTimeAuthMintSupplyMustBeZeroForConversionError);
+      Error.captureStackTrace(
+        this,
+        OneTimeAuthMintSupplyMustBeZeroForConversionError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x46, () => new OneTimeAuthMintSupplyMustBeZeroForConversionError());
+createErrorFromCodeLookup.set(
+  0x46,
+  () => new OneTimeAuthMintSupplyMustBeZeroForConversionError()
+);
 createErrorFromNameLookup.set(
   'OneTimeAuthMintSupplyMustBeZeroForConversion',
-  () => new OneTimeAuthMintSupplyMustBeZeroForConversionError(),
+  () => new OneTimeAuthMintSupplyMustBeZeroForConversionError()
 );
 
 /**
@@ -1532,7 +1720,10 @@ export class InvalidEditionIndexError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x47, () => new InvalidEditionIndexError());
-createErrorFromNameLookup.set('InvalidEditionIndex', () => new InvalidEditionIndexError());
+createErrorFromNameLookup.set(
+  'InvalidEditionIndex',
+  () => new InvalidEditionIndexError()
+);
 
 /**
  * ReservationArrayShouldBeSizeOne: ''
@@ -1551,10 +1742,13 @@ export class ReservationArrayShouldBeSizeOneError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x48, () => new ReservationArrayShouldBeSizeOneError());
+createErrorFromCodeLookup.set(
+  0x48,
+  () => new ReservationArrayShouldBeSizeOneError()
+);
 createErrorFromNameLookup.set(
   'ReservationArrayShouldBeSizeOne',
-  () => new ReservationArrayShouldBeSizeOneError(),
+  () => new ReservationArrayShouldBeSizeOneError()
 );
 
 /**
@@ -1574,10 +1768,13 @@ export class IsMutableCanOnlyBeFlippedToFalseError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x49, () => new IsMutableCanOnlyBeFlippedToFalseError());
+createErrorFromCodeLookup.set(
+  0x49,
+  () => new IsMutableCanOnlyBeFlippedToFalseError()
+);
 createErrorFromNameLookup.set(
   'IsMutableCanOnlyBeFlippedToFalse',
-  () => new IsMutableCanOnlyBeFlippedToFalseError(),
+  () => new IsMutableCanOnlyBeFlippedToFalseError()
 );
 
 /**
@@ -1592,15 +1789,21 @@ export class CollectionCannotBeVerifiedInThisInstructionError extends Error {
   constructor() {
     super('Collection cannot be verified in this instruction');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, CollectionCannotBeVerifiedInThisInstructionError);
+      Error.captureStackTrace(
+        this,
+        CollectionCannotBeVerifiedInThisInstructionError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x4a, () => new CollectionCannotBeVerifiedInThisInstructionError());
+createErrorFromCodeLookup.set(
+  0x4a,
+  () => new CollectionCannotBeVerifiedInThisInstructionError()
+);
 createErrorFromNameLookup.set(
   'CollectionCannotBeVerifiedInThisInstruction',
-  () => new CollectionCannotBeVerifiedInThisInstructionError(),
+  () => new CollectionCannotBeVerifiedInThisInstructionError()
 );
 
 /**
@@ -1613,7 +1816,9 @@ export class RemovedError extends Error {
   readonly code: number = 0x4b;
   readonly name: string = 'Removed';
   constructor() {
-    super('This instruction was deprecated in a previous release and is now removed');
+    super(
+      'This instruction was deprecated in a previous release and is now removed'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, RemovedError);
     }
@@ -1661,7 +1866,10 @@ export class InvalidUseMethodError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x4d, () => new InvalidUseMethodError());
-createErrorFromNameLookup.set('InvalidUseMethod', () => new InvalidUseMethodError());
+createErrorFromNameLookup.set(
+  'InvalidUseMethod',
+  () => new InvalidUseMethodError()
+);
 
 /**
  * CannotChangeUseMethodAfterFirstUse: 'Cannot Change Use Method after the first use'
@@ -1680,10 +1888,13 @@ export class CannotChangeUseMethodAfterFirstUseError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x4e, () => new CannotChangeUseMethodAfterFirstUseError());
+createErrorFromCodeLookup.set(
+  0x4e,
+  () => new CannotChangeUseMethodAfterFirstUseError()
+);
 createErrorFromNameLookup.set(
   'CannotChangeUseMethodAfterFirstUse',
-  () => new CannotChangeUseMethodAfterFirstUseError(),
+  () => new CannotChangeUseMethodAfterFirstUseError()
 );
 
 /**
@@ -1703,10 +1914,13 @@ export class CannotChangeUsesAfterFirstUseError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x4f, () => new CannotChangeUsesAfterFirstUseError());
+createErrorFromCodeLookup.set(
+  0x4f,
+  () => new CannotChangeUsesAfterFirstUseError()
+);
 createErrorFromNameLookup.set(
   'CannotChangeUsesAfterFirstUse',
-  () => new CannotChangeUsesAfterFirstUseError(),
+  () => new CannotChangeUsesAfterFirstUseError()
 );
 
 /**
@@ -1727,7 +1941,10 @@ export class CollectionNotFoundError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x50, () => new CollectionNotFoundError());
-createErrorFromNameLookup.set('CollectionNotFound', () => new CollectionNotFoundError());
+createErrorFromNameLookup.set(
+  'CollectionNotFound',
+  () => new CollectionNotFoundError()
+);
 
 /**
  * InvalidCollectionUpdateAuthority: 'Collection Update Authority is invalid'
@@ -1746,10 +1963,13 @@ export class InvalidCollectionUpdateAuthorityError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x51, () => new InvalidCollectionUpdateAuthorityError());
+createErrorFromCodeLookup.set(
+  0x51,
+  () => new InvalidCollectionUpdateAuthorityError()
+);
 createErrorFromNameLookup.set(
   'InvalidCollectionUpdateAuthority',
-  () => new InvalidCollectionUpdateAuthorityError(),
+  () => new InvalidCollectionUpdateAuthorityError()
 );
 
 /**
@@ -1769,10 +1989,13 @@ export class CollectionMustBeAUniqueMasterEditionError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x52, () => new CollectionMustBeAUniqueMasterEditionError());
+createErrorFromCodeLookup.set(
+  0x52,
+  () => new CollectionMustBeAUniqueMasterEditionError()
+);
 createErrorFromNameLookup.set(
   'CollectionMustBeAUniqueMasterEdition',
-  () => new CollectionMustBeAUniqueMasterEditionError(),
+  () => new CollectionMustBeAUniqueMasterEditionError()
 );
 
 /**
@@ -1785,17 +2008,22 @@ export class UseAuthorityRecordAlreadyExistsError extends Error {
   readonly code: number = 0x53;
   readonly name: string = 'UseAuthorityRecordAlreadyExists';
   constructor() {
-    super('The Use Authority Record Already Exists, to modify it Revoke, then Approve');
+    super(
+      'The Use Authority Record Already Exists, to modify it Revoke, then Approve'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, UseAuthorityRecordAlreadyExistsError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x53, () => new UseAuthorityRecordAlreadyExistsError());
+createErrorFromCodeLookup.set(
+  0x53,
+  () => new UseAuthorityRecordAlreadyExistsError()
+);
 createErrorFromNameLookup.set(
   'UseAuthorityRecordAlreadyExists',
-  () => new UseAuthorityRecordAlreadyExistsError(),
+  () => new UseAuthorityRecordAlreadyExistsError()
 );
 
 /**
@@ -1815,10 +2043,13 @@ export class UseAuthorityRecordAlreadyRevokedError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x54, () => new UseAuthorityRecordAlreadyRevokedError());
+createErrorFromCodeLookup.set(
+  0x54,
+  () => new UseAuthorityRecordAlreadyRevokedError()
+);
 createErrorFromNameLookup.set(
   'UseAuthorityRecordAlreadyRevoked',
-  () => new UseAuthorityRecordAlreadyRevokedError(),
+  () => new UseAuthorityRecordAlreadyRevokedError()
 );
 
 /**
@@ -1873,15 +2104,21 @@ export class CollectionAuthorityRecordAlreadyExistsError extends Error {
   constructor() {
     super('This Collection Authority Record Already Exists.');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, CollectionAuthorityRecordAlreadyExistsError);
+      Error.captureStackTrace(
+        this,
+        CollectionAuthorityRecordAlreadyExistsError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x57, () => new CollectionAuthorityRecordAlreadyExistsError());
+createErrorFromCodeLookup.set(
+  0x57,
+  () => new CollectionAuthorityRecordAlreadyExistsError()
+);
 createErrorFromNameLookup.set(
   'CollectionAuthorityRecordAlreadyExists',
-  () => new CollectionAuthorityRecordAlreadyExistsError(),
+  () => new CollectionAuthorityRecordAlreadyExistsError()
 );
 
 /**
@@ -1901,10 +2138,13 @@ export class CollectionAuthorityDoesNotExistError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x58, () => new CollectionAuthorityDoesNotExistError());
+createErrorFromCodeLookup.set(
+  0x58,
+  () => new CollectionAuthorityDoesNotExistError()
+);
 createErrorFromNameLookup.set(
   'CollectionAuthorityDoesNotExist',
-  () => new CollectionAuthorityDoesNotExistError(),
+  () => new CollectionAuthorityDoesNotExistError()
 );
 
 /**
@@ -1927,7 +2167,7 @@ export class InvalidUseAuthorityRecordError extends Error {
 createErrorFromCodeLookup.set(0x59, () => new InvalidUseAuthorityRecordError());
 createErrorFromNameLookup.set(
   'InvalidUseAuthorityRecord',
-  () => new InvalidUseAuthorityRecordError(),
+  () => new InvalidUseAuthorityRecordError()
 );
 
 /**
@@ -1947,10 +2187,13 @@ export class InvalidCollectionAuthorityRecordError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x5a, () => new InvalidCollectionAuthorityRecordError());
+createErrorFromCodeLookup.set(
+  0x5a,
+  () => new InvalidCollectionAuthorityRecordError()
+);
 createErrorFromNameLookup.set(
   'InvalidCollectionAuthorityRecord',
-  () => new InvalidCollectionAuthorityRecordError(),
+  () => new InvalidCollectionAuthorityRecordError()
 );
 
 /**
@@ -1971,7 +2214,10 @@ export class InvalidFreezeAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x5b, () => new InvalidFreezeAuthorityError());
-createErrorFromNameLookup.set('InvalidFreezeAuthority', () => new InvalidFreezeAuthorityError());
+createErrorFromNameLookup.set(
+  'InvalidFreezeAuthority',
+  () => new InvalidFreezeAuthorityError()
+);
 
 /**
  * InvalidDelegate: 'All tokens in this account have not been delegated to this user.'
@@ -1991,7 +2237,10 @@ export class InvalidDelegateError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x5c, () => new InvalidDelegateError());
-createErrorFromNameLookup.set('InvalidDelegate', () => new InvalidDelegateError());
+createErrorFromNameLookup.set(
+  'InvalidDelegate',
+  () => new InvalidDelegateError()
+);
 
 /**
  * CannotAdjustVerifiedCreator: ''
@@ -2010,10 +2259,13 @@ export class CannotAdjustVerifiedCreatorError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x5d, () => new CannotAdjustVerifiedCreatorError());
+createErrorFromCodeLookup.set(
+  0x5d,
+  () => new CannotAdjustVerifiedCreatorError()
+);
 createErrorFromNameLookup.set(
   'CannotAdjustVerifiedCreator',
-  () => new CannotAdjustVerifiedCreatorError(),
+  () => new CannotAdjustVerifiedCreatorError()
 );
 
 /**
@@ -2033,10 +2285,13 @@ export class CannotRemoveVerifiedCreatorError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x5e, () => new CannotRemoveVerifiedCreatorError());
+createErrorFromCodeLookup.set(
+  0x5e,
+  () => new CannotRemoveVerifiedCreatorError()
+);
 createErrorFromNameLookup.set(
   'CannotRemoveVerifiedCreator',
-  () => new CannotRemoveVerifiedCreatorError(),
+  () => new CannotRemoveVerifiedCreatorError()
 );
 
 /**
@@ -2056,10 +2311,13 @@ export class CannotWipeVerifiedCreatorsError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x5f, () => new CannotWipeVerifiedCreatorsError());
+createErrorFromCodeLookup.set(
+  0x5f,
+  () => new CannotWipeVerifiedCreatorsError()
+);
 createErrorFromNameLookup.set(
   'CannotWipeVerifiedCreators',
-  () => new CannotWipeVerifiedCreatorsError(),
+  () => new CannotWipeVerifiedCreatorsError()
 );
 
 /**
@@ -2074,15 +2332,21 @@ export class NotAllowedToChangeSellerFeeBasisPointsError extends Error {
   constructor() {
     super('');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, NotAllowedToChangeSellerFeeBasisPointsError);
+      Error.captureStackTrace(
+        this,
+        NotAllowedToChangeSellerFeeBasisPointsError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x60, () => new NotAllowedToChangeSellerFeeBasisPointsError());
+createErrorFromCodeLookup.set(
+  0x60,
+  () => new NotAllowedToChangeSellerFeeBasisPointsError()
+);
 createErrorFromNameLookup.set(
   'NotAllowedToChangeSellerFeeBasisPoints',
-  () => new NotAllowedToChangeSellerFeeBasisPointsError(),
+  () => new NotAllowedToChangeSellerFeeBasisPointsError()
 );
 
 /**
@@ -2102,10 +2366,13 @@ export class EditionOverrideCannotBeZeroError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x61, () => new EditionOverrideCannotBeZeroError());
+createErrorFromCodeLookup.set(
+  0x61,
+  () => new EditionOverrideCannotBeZeroError()
+);
 createErrorFromNameLookup.set(
   'EditionOverrideCannotBeZero',
-  () => new EditionOverrideCannotBeZeroError(),
+  () => new EditionOverrideCannotBeZeroError()
 );
 
 /**
@@ -2140,15 +2407,21 @@ export class RevokeCollectionAuthoritySignerIncorrectError extends Error {
   constructor() {
     super('Revoke Collection Authority signer is incorrect');
     if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, RevokeCollectionAuthoritySignerIncorrectError);
+      Error.captureStackTrace(
+        this,
+        RevokeCollectionAuthoritySignerIncorrectError
+      );
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x63, () => new RevokeCollectionAuthoritySignerIncorrectError());
+createErrorFromCodeLookup.set(
+  0x63,
+  () => new RevokeCollectionAuthoritySignerIncorrectError()
+);
 createErrorFromNameLookup.set(
   'RevokeCollectionAuthoritySignerIncorrect',
-  () => new RevokeCollectionAuthoritySignerIncorrectError(),
+  () => new RevokeCollectionAuthoritySignerIncorrectError()
 );
 
 /**
@@ -2169,7 +2442,10 @@ export class TokenCloseFailedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x64, () => new TokenCloseFailedError());
-createErrorFromNameLookup.set('TokenCloseFailed', () => new TokenCloseFailedError());
+createErrorFromNameLookup.set(
+  'TokenCloseFailed',
+  () => new TokenCloseFailedError()
+);
 
 /**
  * UnsizedCollection: 'Can't use this function on unsized collection'
@@ -2189,7 +2465,10 @@ export class UnsizedCollectionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x65, () => new UnsizedCollectionError());
-createErrorFromNameLookup.set('UnsizedCollection', () => new UnsizedCollectionError());
+createErrorFromNameLookup.set(
+  'UnsizedCollection',
+  () => new UnsizedCollectionError()
+);
 
 /**
  * SizedCollection: 'Can't use this function on a sized collection'
@@ -2209,7 +2488,10 @@ export class SizedCollectionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x66, () => new SizedCollectionError());
-createErrorFromNameLookup.set('SizedCollection', () => new SizedCollectionError());
+createErrorFromNameLookup.set(
+  'SizedCollection',
+  () => new SizedCollectionError()
+);
 
 /**
  * MissingCollectionMetadata: 'Missing collection metadata account'
@@ -2231,7 +2513,7 @@ export class MissingCollectionMetadataError extends Error {
 createErrorFromCodeLookup.set(0x67, () => new MissingCollectionMetadataError());
 createErrorFromNameLookup.set(
   'MissingCollectionMetadata',
-  () => new MissingCollectionMetadataError(),
+  () => new MissingCollectionMetadataError()
 );
 
 /**
@@ -2252,7 +2534,10 @@ export class NotAMemberOfCollectionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x68, () => new NotAMemberOfCollectionError());
-createErrorFromNameLookup.set('NotAMemberOfCollection', () => new NotAMemberOfCollectionError());
+createErrorFromNameLookup.set(
+  'NotAMemberOfCollection',
+  () => new NotAMemberOfCollectionError()
+);
 
 /**
  * NotVerifiedMemberOfCollection: 'This NFT is not a verified member of the specified collection.'
@@ -2271,10 +2556,13 @@ export class NotVerifiedMemberOfCollectionError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x69, () => new NotVerifiedMemberOfCollectionError());
+createErrorFromCodeLookup.set(
+  0x69,
+  () => new NotVerifiedMemberOfCollectionError()
+);
 createErrorFromNameLookup.set(
   'NotVerifiedMemberOfCollection',
-  () => new NotVerifiedMemberOfCollectionError(),
+  () => new NotVerifiedMemberOfCollectionError()
 );
 
 /**
@@ -2295,7 +2583,10 @@ export class NotACollectionParentError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x6a, () => new NotACollectionParentError());
-createErrorFromNameLookup.set('NotACollectionParent', () => new NotACollectionParentError());
+createErrorFromNameLookup.set(
+  'NotACollectionParent',
+  () => new NotACollectionParentError()
+);
 
 /**
  * CouldNotDetermineTokenStandard: 'Could not determine a TokenStandard type.'
@@ -2314,10 +2605,13 @@ export class CouldNotDetermineTokenStandardError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x6b, () => new CouldNotDetermineTokenStandardError());
+createErrorFromCodeLookup.set(
+  0x6b,
+  () => new CouldNotDetermineTokenStandardError()
+);
 createErrorFromNameLookup.set(
   'CouldNotDetermineTokenStandard',
-  () => new CouldNotDetermineTokenStandardError(),
+  () => new CouldNotDetermineTokenStandardError()
 );
 
 /**
@@ -2338,7 +2632,10 @@ export class MissingEditionAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x6c, () => new MissingEditionAccountError());
-createErrorFromNameLookup.set('MissingEditionAccount', () => new MissingEditionAccountError());
+createErrorFromNameLookup.set(
+  'MissingEditionAccount',
+  () => new MissingEditionAccountError()
+);
 
 /**
  * NotAMasterEdition: 'This edition is not a Master Edition'
@@ -2358,7 +2655,10 @@ export class NotAMasterEditionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x6d, () => new NotAMasterEditionError());
-createErrorFromNameLookup.set('NotAMasterEdition', () => new NotAMasterEditionError());
+createErrorFromNameLookup.set(
+  'NotAMasterEdition',
+  () => new NotAMasterEditionError()
+);
 
 /**
  * MasterEditionHasPrints: 'This Master Edition has existing prints'
@@ -2378,7 +2678,10 @@ export class MasterEditionHasPrintsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x6e, () => new MasterEditionHasPrintsError());
-createErrorFromNameLookup.set('MasterEditionHasPrints', () => new MasterEditionHasPrintsError());
+createErrorFromNameLookup.set(
+  'MasterEditionHasPrints',
+  () => new MasterEditionHasPrintsError()
+);
 
 /**
  * BorshDeserializationError: ''
@@ -2400,7 +2703,7 @@ export class BorshDeserializationErrorError extends Error {
 createErrorFromCodeLookup.set(0x6f, () => new BorshDeserializationErrorError());
 createErrorFromNameLookup.set(
   'BorshDeserializationError',
-  () => new BorshDeserializationErrorError(),
+  () => new BorshDeserializationErrorError()
 );
 
 /**
@@ -2420,10 +2723,13 @@ export class CannotUpdateVerifiedCollectionError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x70, () => new CannotUpdateVerifiedCollectionError());
+createErrorFromCodeLookup.set(
+  0x70,
+  () => new CannotUpdateVerifiedCollectionError()
+);
 createErrorFromNameLookup.set(
   'CannotUpdateVerifiedCollection',
-  () => new CannotUpdateVerifiedCollectionError(),
+  () => new CannotUpdateVerifiedCollectionError()
 );
 
 /**
@@ -2443,10 +2749,13 @@ export class CollectionMasterEditionAccountInvalidError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x71, () => new CollectionMasterEditionAccountInvalidError());
+createErrorFromCodeLookup.set(
+  0x71,
+  () => new CollectionMasterEditionAccountInvalidError()
+);
 createErrorFromNameLookup.set(
   'CollectionMasterEditionAccountInvalid',
-  () => new CollectionMasterEditionAccountInvalidError(),
+  () => new CollectionMasterEditionAccountInvalidError()
 );
 
 /**
@@ -2467,7 +2776,10 @@ export class AlreadyVerifiedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x72, () => new AlreadyVerifiedError());
-createErrorFromNameLookup.set('AlreadyVerified', () => new AlreadyVerifiedError());
+createErrorFromNameLookup.set(
+  'AlreadyVerified',
+  () => new AlreadyVerifiedError()
+);
 
 /**
  * AlreadyUnverified: ''
@@ -2487,7 +2799,10 @@ export class AlreadyUnverifiedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x73, () => new AlreadyUnverifiedError());
-createErrorFromNameLookup.set('AlreadyUnverified', () => new AlreadyUnverifiedError());
+createErrorFromNameLookup.set(
+  'AlreadyUnverified',
+  () => new AlreadyUnverifiedError()
+);
 
 /**
  * NotAPrintEdition: 'This edition is not a Print Edition'
@@ -2507,7 +2822,10 @@ export class NotAPrintEditionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x74, () => new NotAPrintEditionError());
-createErrorFromNameLookup.set('NotAPrintEdition', () => new NotAPrintEditionError());
+createErrorFromNameLookup.set(
+  'NotAPrintEdition',
+  () => new NotAPrintEditionError()
+);
 
 /**
  * InvalidMasterEdition: 'Invalid Master Edition'
@@ -2527,7 +2845,10 @@ export class InvalidMasterEditionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x75, () => new InvalidMasterEditionError());
-createErrorFromNameLookup.set('InvalidMasterEdition', () => new InvalidMasterEditionError());
+createErrorFromNameLookup.set(
+  'InvalidMasterEdition',
+  () => new InvalidMasterEditionError()
+);
 
 /**
  * InvalidPrintEdition: 'Invalid Print Edition'
@@ -2547,7 +2868,10 @@ export class InvalidPrintEditionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x76, () => new InvalidPrintEditionError());
-createErrorFromNameLookup.set('InvalidPrintEdition', () => new InvalidPrintEditionError());
+createErrorFromNameLookup.set(
+  'InvalidPrintEdition',
+  () => new InvalidPrintEditionError()
+);
 
 /**
  * InvalidEditionMarker: 'Invalid Edition Marker'
@@ -2567,7 +2891,10 @@ export class InvalidEditionMarkerError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x77, () => new InvalidEditionMarkerError());
-createErrorFromNameLookup.set('InvalidEditionMarker', () => new InvalidEditionMarkerError());
+createErrorFromNameLookup.set(
+  'InvalidEditionMarker',
+  () => new InvalidEditionMarkerError()
+);
 
 /**
  * ReservationListDeprecated: 'Reservation List is Deprecated'
@@ -2589,7 +2916,7 @@ export class ReservationListDeprecatedError extends Error {
 createErrorFromCodeLookup.set(0x78, () => new ReservationListDeprecatedError());
 createErrorFromNameLookup.set(
   'ReservationListDeprecated',
-  () => new ReservationListDeprecatedError(),
+  () => new ReservationListDeprecatedError()
 );
 
 /**
@@ -2609,10 +2936,13 @@ export class PrintEditionDoesNotMatchMasterEditionError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x79, () => new PrintEditionDoesNotMatchMasterEditionError());
+createErrorFromCodeLookup.set(
+  0x79,
+  () => new PrintEditionDoesNotMatchMasterEditionError()
+);
 createErrorFromNameLookup.set(
   'PrintEditionDoesNotMatchMasterEdition',
-  () => new PrintEditionDoesNotMatchMasterEditionError(),
+  () => new PrintEditionDoesNotMatchMasterEditionError()
 );
 
 /**
@@ -2632,10 +2962,13 @@ export class EditionNumberGreaterThanMaxSupplyError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x7a, () => new EditionNumberGreaterThanMaxSupplyError());
+createErrorFromCodeLookup.set(
+  0x7a,
+  () => new EditionNumberGreaterThanMaxSupplyError()
+);
 createErrorFromNameLookup.set(
   'EditionNumberGreaterThanMaxSupply',
-  () => new EditionNumberGreaterThanMaxSupplyError(),
+  () => new EditionNumberGreaterThanMaxSupplyError()
 );
 
 /**
@@ -2676,7 +3009,10 @@ export class InvalidEscrowBumpSeedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x7c, () => new InvalidEscrowBumpSeedError());
-createErrorFromNameLookup.set('InvalidEscrowBumpSeed', () => new InvalidEscrowBumpSeedError());
+createErrorFromNameLookup.set(
+  'InvalidEscrowBumpSeed',
+  () => new InvalidEscrowBumpSeedError()
+);
 
 /**
  * MustBeEscrowAuthority: 'Must Escrow Authority'
@@ -2696,7 +3032,10 @@ export class MustBeEscrowAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x7d, () => new MustBeEscrowAuthorityError());
-createErrorFromNameLookup.set('MustBeEscrowAuthority', () => new MustBeEscrowAuthorityError());
+createErrorFromNameLookup.set(
+  'MustBeEscrowAuthority',
+  () => new MustBeEscrowAuthorityError()
+);
 
 /**
  * InvalidSystemProgram: 'Invalid System Program'
@@ -2716,7 +3055,10 @@ export class InvalidSystemProgramError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x7e, () => new InvalidSystemProgramError());
-createErrorFromNameLookup.set('InvalidSystemProgram', () => new InvalidSystemProgramError());
+createErrorFromNameLookup.set(
+  'InvalidSystemProgram',
+  () => new InvalidSystemProgramError()
+);
 
 /**
  * MustBeNonFungible: 'Must be a Non Fungible Token'
@@ -2736,7 +3078,10 @@ export class MustBeNonFungibleError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x7f, () => new MustBeNonFungibleError());
-createErrorFromNameLookup.set('MustBeNonFungible', () => new MustBeNonFungibleError());
+createErrorFromNameLookup.set(
+  'MustBeNonFungible',
+  () => new MustBeNonFungibleError()
+);
 
 /**
  * InsufficientTokens: 'Insufficient tokens for transfer'
@@ -2756,7 +3101,10 @@ export class InsufficientTokensError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x80, () => new InsufficientTokensError());
-createErrorFromNameLookup.set('InsufficientTokens', () => new InsufficientTokensError());
+createErrorFromNameLookup.set(
+  'InsufficientTokens',
+  () => new InsufficientTokensError()
+);
 
 /**
  * BorshSerializationError: 'Borsh Serialization Error'
@@ -2776,7 +3124,10 @@ export class BorshSerializationErrorError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x81, () => new BorshSerializationErrorError());
-createErrorFromNameLookup.set('BorshSerializationError', () => new BorshSerializationErrorError());
+createErrorFromNameLookup.set(
+  'BorshSerializationError',
+  () => new BorshSerializationErrorError()
+);
 
 /**
  * NoFreezeAuthoritySet: 'Cannot create NFT with no Freeze Authority.'
@@ -2796,7 +3147,10 @@ export class NoFreezeAuthoritySetError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x82, () => new NoFreezeAuthoritySetError());
-createErrorFromNameLookup.set('NoFreezeAuthoritySet', () => new NoFreezeAuthoritySetError());
+createErrorFromNameLookup.set(
+  'NoFreezeAuthoritySet',
+  () => new NoFreezeAuthoritySetError()
+);
 
 /**
  * InvalidCollectionSizeChange: 'Invalid collection size change'
@@ -2815,10 +3169,13 @@ export class InvalidCollectionSizeChangeError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x83, () => new InvalidCollectionSizeChangeError());
+createErrorFromCodeLookup.set(
+  0x83,
+  () => new InvalidCollectionSizeChangeError()
+);
 createErrorFromNameLookup.set(
   'InvalidCollectionSizeChange',
-  () => new InvalidCollectionSizeChangeError(),
+  () => new InvalidCollectionSizeChangeError()
 );
 
 /**
@@ -2839,7 +3196,10 @@ export class InvalidBubblegumSignerError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x84, () => new InvalidBubblegumSignerError());
-createErrorFromNameLookup.set('InvalidBubblegumSigner', () => new InvalidBubblegumSignerError());
+createErrorFromNameLookup.set(
+  'InvalidBubblegumSigner',
+  () => new InvalidBubblegumSignerError()
+);
 
 /**
  * EscrowParentHasDelegate: 'Escrow parent cannot have a delegate'
@@ -2859,7 +3219,10 @@ export class EscrowParentHasDelegateError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x85, () => new EscrowParentHasDelegateError());
-createErrorFromNameLookup.set('EscrowParentHasDelegate', () => new EscrowParentHasDelegateError());
+createErrorFromNameLookup.set(
+  'EscrowParentHasDelegate',
+  () => new EscrowParentHasDelegateError()
+);
 
 /**
  * MintIsNotSigner: 'Mint needs to be signer to initialize the account'
@@ -2879,7 +3242,10 @@ export class MintIsNotSignerError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x86, () => new MintIsNotSignerError());
-createErrorFromNameLookup.set('MintIsNotSigner', () => new MintIsNotSignerError());
+createErrorFromNameLookup.set(
+  'MintIsNotSigner',
+  () => new MintIsNotSignerError()
+);
 
 /**
  * InvalidTokenStandard: 'Invalid token standard'
@@ -2899,7 +3265,10 @@ export class InvalidTokenStandardError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x87, () => new InvalidTokenStandardError());
-createErrorFromNameLookup.set('InvalidTokenStandard', () => new InvalidTokenStandardError());
+createErrorFromNameLookup.set(
+  'InvalidTokenStandard',
+  () => new InvalidTokenStandardError()
+);
 
 /**
  * InvalidMintForTokenStandard: 'Invalid mint account for specified token standard'
@@ -2918,10 +3287,13 @@ export class InvalidMintForTokenStandardError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x88, () => new InvalidMintForTokenStandardError());
+createErrorFromCodeLookup.set(
+  0x88,
+  () => new InvalidMintForTokenStandardError()
+);
 createErrorFromNameLookup.set(
   'InvalidMintForTokenStandard',
-  () => new InvalidMintForTokenStandardError(),
+  () => new InvalidMintForTokenStandardError()
 );
 
 /**
@@ -2944,7 +3316,7 @@ export class InvalidAuthorizationRulesError extends Error {
 createErrorFromCodeLookup.set(0x89, () => new InvalidAuthorizationRulesError());
 createErrorFromNameLookup.set(
   'InvalidAuthorizationRules',
-  () => new InvalidAuthorizationRulesError(),
+  () => new InvalidAuthorizationRulesError()
 );
 
 /**
@@ -2967,7 +3339,7 @@ export class MissingAuthorizationRulesError extends Error {
 createErrorFromCodeLookup.set(0x8a, () => new MissingAuthorizationRulesError());
 createErrorFromNameLookup.set(
   'MissingAuthorizationRules',
-  () => new MissingAuthorizationRulesError(),
+  () => new MissingAuthorizationRulesError()
 );
 
 /**
@@ -2990,7 +3362,7 @@ export class MissingProgrammableConfigError extends Error {
 createErrorFromCodeLookup.set(0x8b, () => new MissingProgrammableConfigError());
 createErrorFromNameLookup.set(
   'MissingProgrammableConfig',
-  () => new MissingProgrammableConfigError(),
+  () => new MissingProgrammableConfigError()
 );
 
 /**
@@ -3013,7 +3385,7 @@ export class InvalidProgrammableConfigError extends Error {
 createErrorFromCodeLookup.set(0x8c, () => new InvalidProgrammableConfigError());
 createErrorFromNameLookup.set(
   'InvalidProgrammableConfig',
-  () => new InvalidProgrammableConfigError(),
+  () => new InvalidProgrammableConfigError()
 );
 
 /**
@@ -3034,7 +3406,10 @@ export class DelegateAlreadyExistsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x8d, () => new DelegateAlreadyExistsError());
-createErrorFromNameLookup.set('DelegateAlreadyExists', () => new DelegateAlreadyExistsError());
+createErrorFromNameLookup.set(
+  'DelegateAlreadyExists',
+  () => new DelegateAlreadyExistsError()
+);
 
 /**
  * DelegateNotFound: 'Delegate not found'
@@ -3054,7 +3429,10 @@ export class DelegateNotFoundError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x8e, () => new DelegateNotFoundError());
-createErrorFromNameLookup.set('DelegateNotFound', () => new DelegateNotFoundError());
+createErrorFromNameLookup.set(
+  'DelegateNotFound',
+  () => new DelegateNotFoundError()
+);
 
 /**
  * MissingAccountInBuilder: 'Required account not set in instruction builder'
@@ -3074,7 +3452,10 @@ export class MissingAccountInBuilderError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x8f, () => new MissingAccountInBuilderError());
-createErrorFromNameLookup.set('MissingAccountInBuilder', () => new MissingAccountInBuilderError());
+createErrorFromNameLookup.set(
+  'MissingAccountInBuilder',
+  () => new MissingAccountInBuilderError()
+);
 
 /**
  * MissingArgumentInBuilder: 'Required argument not set in instruction builder'
@@ -3096,7 +3477,7 @@ export class MissingArgumentInBuilderError extends Error {
 createErrorFromCodeLookup.set(0x90, () => new MissingArgumentInBuilderError());
 createErrorFromNameLookup.set(
   'MissingArgumentInBuilder',
-  () => new MissingArgumentInBuilderError(),
+  () => new MissingArgumentInBuilderError()
 );
 
 /**
@@ -3117,7 +3498,10 @@ export class FeatureNotSupportedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x91, () => new FeatureNotSupportedError());
-createErrorFromNameLookup.set('FeatureNotSupported', () => new FeatureNotSupportedError());
+createErrorFromNameLookup.set(
+  'FeatureNotSupported',
+  () => new FeatureNotSupportedError()
+);
 
 /**
  * InvalidSystemWallet: 'Invalid system wallet'
@@ -3137,7 +3521,10 @@ export class InvalidSystemWalletError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x92, () => new InvalidSystemWalletError());
-createErrorFromNameLookup.set('InvalidSystemWallet', () => new InvalidSystemWalletError());
+createErrorFromNameLookup.set(
+  'InvalidSystemWallet',
+  () => new InvalidSystemWalletError()
+);
 
 /**
  * OnlySaleDelegateCanTransfer: 'Only the sale delegate can transfer while its set'
@@ -3156,10 +3543,13 @@ export class OnlySaleDelegateCanTransferError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x93, () => new OnlySaleDelegateCanTransferError());
+createErrorFromCodeLookup.set(
+  0x93,
+  () => new OnlySaleDelegateCanTransferError()
+);
 createErrorFromNameLookup.set(
   'OnlySaleDelegateCanTransfer',
-  () => new OnlySaleDelegateCanTransferError(),
+  () => new OnlySaleDelegateCanTransferError()
 );
 
 /**
@@ -3180,7 +3570,10 @@ export class MissingTokenAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x94, () => new MissingTokenAccountError());
-createErrorFromNameLookup.set('MissingTokenAccount', () => new MissingTokenAccountError());
+createErrorFromNameLookup.set(
+  'MissingTokenAccount',
+  () => new MissingTokenAccountError()
+);
 
 /**
  * MissingSplTokenProgram: 'Missing SPL token program'
@@ -3200,7 +3593,10 @@ export class MissingSplTokenProgramError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x95, () => new MissingSplTokenProgramError());
-createErrorFromNameLookup.set('MissingSplTokenProgram', () => new MissingSplTokenProgramError());
+createErrorFromNameLookup.set(
+  'MissingSplTokenProgram',
+  () => new MissingSplTokenProgramError()
+);
 
 /**
  * MissingAuthorizationRulesProgram: 'Missing authorization rules program'
@@ -3219,10 +3615,13 @@ export class MissingAuthorizationRulesProgramError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x96, () => new MissingAuthorizationRulesProgramError());
+createErrorFromCodeLookup.set(
+  0x96,
+  () => new MissingAuthorizationRulesProgramError()
+);
 createErrorFromNameLookup.set(
   'MissingAuthorizationRulesProgram',
-  () => new MissingAuthorizationRulesProgramError(),
+  () => new MissingAuthorizationRulesProgramError()
 );
 
 /**
@@ -3242,10 +3641,13 @@ export class InvalidDelegateRoleForTransferError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0x97, () => new InvalidDelegateRoleForTransferError());
+createErrorFromCodeLookup.set(
+  0x97,
+  () => new InvalidDelegateRoleForTransferError()
+);
 createErrorFromNameLookup.set(
   'InvalidDelegateRoleForTransfer',
-  () => new InvalidDelegateRoleForTransferError(),
+  () => new InvalidDelegateRoleForTransferError()
 );
 
 /**
@@ -3268,7 +3670,7 @@ export class InvalidTransferAuthorityError extends Error {
 createErrorFromCodeLookup.set(0x98, () => new InvalidTransferAuthorityError());
 createErrorFromNameLookup.set(
   'InvalidTransferAuthority',
-  () => new InvalidTransferAuthorityError(),
+  () => new InvalidTransferAuthorityError()
 );
 
 /**
@@ -3289,7 +3691,10 @@ export class InstructionNotSupportedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x99, () => new InstructionNotSupportedError());
-createErrorFromNameLookup.set('InstructionNotSupported', () => new InstructionNotSupportedError());
+createErrorFromNameLookup.set(
+  'InstructionNotSupported',
+  () => new InstructionNotSupportedError()
+);
 
 /**
  * KeyMismatch: 'Public key does not match expected value'
@@ -3369,7 +3774,10 @@ export class MissingDelegateRoleError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x9d, () => new MissingDelegateRoleError());
-createErrorFromNameLookup.set('MissingDelegateRole', () => new MissingDelegateRoleError());
+createErrorFromNameLookup.set(
+  'MissingDelegateRole',
+  () => new MissingDelegateRoleError()
+);
 
 /**
  * InvalidAuthorityType: 'Invalid authority type'
@@ -3389,7 +3797,10 @@ export class InvalidAuthorityTypeError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x9e, () => new InvalidAuthorityTypeError());
-createErrorFromNameLookup.set('InvalidAuthorityType', () => new InvalidAuthorityTypeError());
+createErrorFromNameLookup.set(
+  'InvalidAuthorityType',
+  () => new InvalidAuthorityTypeError()
+);
 
 /**
  * MissingTokenRecord: 'Missing token record account'
@@ -3409,7 +3820,10 @@ export class MissingTokenRecordError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x9f, () => new MissingTokenRecordError());
-createErrorFromNameLookup.set('MissingTokenRecord', () => new MissingTokenRecordError());
+createErrorFromNameLookup.set(
+  'MissingTokenRecord',
+  () => new MissingTokenRecordError()
+);
 
 /**
  * MintSupplyMustBeZero: 'Mint supply must be zero for programmable assets'
@@ -3429,7 +3843,10 @@ export class MintSupplyMustBeZeroError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa0, () => new MintSupplyMustBeZeroError());
-createErrorFromNameLookup.set('MintSupplyMustBeZero', () => new MintSupplyMustBeZeroError());
+createErrorFromNameLookup.set(
+  'MintSupplyMustBeZero',
+  () => new MintSupplyMustBeZeroError()
+);
 
 /**
  * DataIsEmptyOrZeroed: 'Data is empty or zeroed'
@@ -3449,7 +3866,10 @@ export class DataIsEmptyOrZeroedError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa1, () => new DataIsEmptyOrZeroedError());
-createErrorFromNameLookup.set('DataIsEmptyOrZeroed', () => new DataIsEmptyOrZeroedError());
+createErrorFromNameLookup.set(
+  'DataIsEmptyOrZeroed',
+  () => new DataIsEmptyOrZeroedError()
+);
 
 /**
  * MissingTokenOwnerAccount: 'Missing token owner'
@@ -3471,7 +3891,7 @@ export class MissingTokenOwnerAccountError extends Error {
 createErrorFromCodeLookup.set(0xa2, () => new MissingTokenOwnerAccountError());
 createErrorFromNameLookup.set(
   'MissingTokenOwnerAccount',
-  () => new MissingTokenOwnerAccountError(),
+  () => new MissingTokenOwnerAccountError()
 );
 
 /**
@@ -3491,10 +3911,13 @@ export class InvalidMasterEditionAccountLengthError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xa3, () => new InvalidMasterEditionAccountLengthError());
+createErrorFromCodeLookup.set(
+  0xa3,
+  () => new InvalidMasterEditionAccountLengthError()
+);
 createErrorFromNameLookup.set(
   'InvalidMasterEditionAccountLength',
-  () => new InvalidMasterEditionAccountLengthError(),
+  () => new InvalidMasterEditionAccountLengthError()
 );
 
 /**
@@ -3515,7 +3938,10 @@ export class IncorrectTokenStateError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa4, () => new IncorrectTokenStateError());
-createErrorFromNameLookup.set('IncorrectTokenState', () => new IncorrectTokenStateError());
+createErrorFromNameLookup.set(
+  'IncorrectTokenState',
+  () => new IncorrectTokenStateError()
+);
 
 /**
  * InvalidDelegateRole: 'Invalid delegate role'
@@ -3535,7 +3961,10 @@ export class InvalidDelegateRoleError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa5, () => new InvalidDelegateRoleError());
-createErrorFromNameLookup.set('InvalidDelegateRole', () => new InvalidDelegateRoleError());
+createErrorFromNameLookup.set(
+  'InvalidDelegateRole',
+  () => new InvalidDelegateRoleError()
+);
 
 /**
  * MissingPrintSupply: 'Print supply is required for non-fungibles'
@@ -3555,7 +3984,10 @@ export class MissingPrintSupplyError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa6, () => new MissingPrintSupplyError());
-createErrorFromNameLookup.set('MissingPrintSupply', () => new MissingPrintSupplyError());
+createErrorFromNameLookup.set(
+  'MissingPrintSupply',
+  () => new MissingPrintSupplyError()
+);
 
 /**
  * MissingMasterEditionAccount: 'Missing master edition account'
@@ -3574,10 +4006,13 @@ export class MissingMasterEditionAccountError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xa7, () => new MissingMasterEditionAccountError());
+createErrorFromCodeLookup.set(
+  0xa7,
+  () => new MissingMasterEditionAccountError()
+);
 createErrorFromNameLookup.set(
   'MissingMasterEditionAccount',
-  () => new MissingMasterEditionAccountError(),
+  () => new MissingMasterEditionAccountError()
 );
 
 /**
@@ -3597,10 +4032,13 @@ export class AmountMustBeGreaterThanZeroError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xa8, () => new AmountMustBeGreaterThanZeroError());
+createErrorFromCodeLookup.set(
+  0xa8,
+  () => new AmountMustBeGreaterThanZeroError()
+);
 createErrorFromNameLookup.set(
   'AmountMustBeGreaterThanZero',
-  () => new AmountMustBeGreaterThanZeroError(),
+  () => new AmountMustBeGreaterThanZeroError()
 );
 
 /**
@@ -3621,7 +4059,10 @@ export class InvalidDelegateArgsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa9, () => new InvalidDelegateArgsError());
-createErrorFromNameLookup.set('InvalidDelegateArgs', () => new InvalidDelegateArgsError());
+createErrorFromNameLookup.set(
+  'InvalidDelegateArgs',
+  () => new InvalidDelegateArgsError()
+);
 
 /**
  * MissingLockedTransferAddress: 'Missing address for locked transfer'
@@ -3640,10 +4081,13 @@ export class MissingLockedTransferAddressError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xaa, () => new MissingLockedTransferAddressError());
+createErrorFromCodeLookup.set(
+  0xaa,
+  () => new MissingLockedTransferAddressError()
+);
 createErrorFromNameLookup.set(
   'MissingLockedTransferAddress',
-  () => new MissingLockedTransferAddressError(),
+  () => new MissingLockedTransferAddressError()
 );
 
 /**
@@ -3663,10 +4107,13 @@ export class InvalidLockedTransferAddressError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xab, () => new InvalidLockedTransferAddressError());
+createErrorFromCodeLookup.set(
+  0xab,
+  () => new InvalidLockedTransferAddressError()
+);
 createErrorFromNameLookup.set(
   'InvalidLockedTransferAddress',
-  () => new InvalidLockedTransferAddressError(),
+  () => new InvalidLockedTransferAddressError()
 );
 
 /**
@@ -3686,10 +4133,13 @@ export class DataIncrementLimitExceededError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xac, () => new DataIncrementLimitExceededError());
+createErrorFromCodeLookup.set(
+  0xac,
+  () => new DataIncrementLimitExceededError()
+);
 createErrorFromNameLookup.set(
   'DataIncrementLimitExceeded',
-  () => new DataIncrementLimitExceededError(),
+  () => new DataIncrementLimitExceededError()
 );
 
 /**
@@ -3702,17 +4152,22 @@ export class CannotUpdateAssetWithDelegateError extends Error {
   readonly code: number = 0xad;
   readonly name: string = 'CannotUpdateAssetWithDelegate';
   constructor() {
-    super('Cannot update the rule set of a programmable asset that has a delegate');
+    super(
+      'Cannot update the rule set of a programmable asset that has a delegate'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, CannotUpdateAssetWithDelegateError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0xad, () => new CannotUpdateAssetWithDelegateError());
+createErrorFromCodeLookup.set(
+  0xad,
+  () => new CannotUpdateAssetWithDelegateError()
+);
 createErrorFromNameLookup.set(
   'CannotUpdateAssetWithDelegate',
-  () => new CannotUpdateAssetWithDelegateError(),
+  () => new CannotUpdateAssetWithDelegateError()
 );
 
 /**
@@ -3752,10 +4207,13 @@ export class MissingMasterEditionMintAccountError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xaf, () => new MissingMasterEditionMintAccountError());
+createErrorFromCodeLookup.set(
+  0xaf,
+  () => new MissingMasterEditionMintAccountError()
+);
 createErrorFromNameLookup.set(
   'MissingMasterEditionMintAccount',
-  () => new MissingMasterEditionMintAccountError(),
+  () => new MissingMasterEditionMintAccountError()
 );
 
 /**
@@ -3775,10 +4233,13 @@ export class MissingMasterEditionTokenAccountError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xb0, () => new MissingMasterEditionTokenAccountError());
+createErrorFromCodeLookup.set(
+  0xb0,
+  () => new MissingMasterEditionTokenAccountError()
+);
 createErrorFromNameLookup.set(
   'MissingMasterEditionTokenAccount',
-  () => new MissingMasterEditionTokenAccountError(),
+  () => new MissingMasterEditionTokenAccountError()
 );
 
 /**
@@ -3798,10 +4259,13 @@ export class MissingEditionMarkerAccountError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xb1, () => new MissingEditionMarkerAccountError());
+createErrorFromCodeLookup.set(
+  0xb1,
+  () => new MissingEditionMarkerAccountError()
+);
 createErrorFromNameLookup.set(
   'MissingEditionMarkerAccount',
-  () => new MissingEditionMarkerAccountError(),
+  () => new MissingEditionMarkerAccountError()
 );
 
 /**
@@ -3822,7 +4286,10 @@ export class CannotBurnWithDelegateError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb2, () => new CannotBurnWithDelegateError());
-createErrorFromNameLookup.set('CannotBurnWithDelegate', () => new CannotBurnWithDelegateError());
+createErrorFromNameLookup.set(
+  'CannotBurnWithDelegate',
+  () => new CannotBurnWithDelegateError()
+);
 
 /**
  * MissingEdition: 'Missing edition account'
@@ -3842,7 +4309,10 @@ export class MissingEditionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb3, () => new MissingEditionError());
-createErrorFromNameLookup.set('MissingEdition', () => new MissingEditionError());
+createErrorFromNameLookup.set(
+  'MissingEdition',
+  () => new MissingEditionError()
+);
 
 /**
  * InvalidAssociatedTokenAccountProgram: 'Invalid Associated Token Account Program'
@@ -3861,10 +4331,13 @@ export class InvalidAssociatedTokenAccountProgramError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xb4, () => new InvalidAssociatedTokenAccountProgramError());
+createErrorFromCodeLookup.set(
+  0xb4,
+  () => new InvalidAssociatedTokenAccountProgramError()
+);
 createErrorFromNameLookup.set(
   'InvalidAssociatedTokenAccountProgram',
-  () => new InvalidAssociatedTokenAccountProgramError(),
+  () => new InvalidAssociatedTokenAccountProgramError()
 );
 
 /**
@@ -3887,7 +4360,7 @@ export class InvalidInstructionsSysvarError extends Error {
 createErrorFromCodeLookup.set(0xb5, () => new InvalidInstructionsSysvarError());
 createErrorFromNameLookup.set(
   'InvalidInstructionsSysvar',
-  () => new InvalidInstructionsSysvarError(),
+  () => new InvalidInstructionsSysvarError()
 );
 
 /**
@@ -3908,7 +4381,10 @@ export class InvalidParentAccountsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb6, () => new InvalidParentAccountsError());
-createErrorFromNameLookup.set('InvalidParentAccounts', () => new InvalidParentAccountsError());
+createErrorFromNameLookup.set(
+  'InvalidParentAccounts',
+  () => new InvalidParentAccountsError()
+);
 
 /**
  * InvalidUpdateArgs: 'Authority cannot apply all update args'
@@ -3928,7 +4404,10 @@ export class InvalidUpdateArgsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb7, () => new InvalidUpdateArgsError());
-createErrorFromNameLookup.set('InvalidUpdateArgs', () => new InvalidUpdateArgsError());
+createErrorFromNameLookup.set(
+  'InvalidUpdateArgs',
+  () => new InvalidUpdateArgsError()
+);
 
 /**
  * InsufficientTokenBalance: 'Token account does not have enough tokens'
@@ -3950,7 +4429,7 @@ export class InsufficientTokenBalanceError extends Error {
 createErrorFromCodeLookup.set(0xb8, () => new InsufficientTokenBalanceError());
 createErrorFromNameLookup.set(
   'InsufficientTokenBalance',
-  () => new InsufficientTokenBalanceError(),
+  () => new InsufficientTokenBalanceError()
 );
 
 /**
@@ -3971,7 +4450,10 @@ export class MissingCollectionMintError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb9, () => new MissingCollectionMintError());
-createErrorFromNameLookup.set('MissingCollectionMint', () => new MissingCollectionMintError());
+createErrorFromNameLookup.set(
+  'MissingCollectionMint',
+  () => new MissingCollectionMintError()
+);
 
 /**
  * MissingCollectionMasterEdition: 'Missing collection master edition account'
@@ -3990,10 +4472,13 @@ export class MissingCollectionMasterEditionError extends Error {
   }
 }
 
-createErrorFromCodeLookup.set(0xba, () => new MissingCollectionMasterEditionError());
+createErrorFromCodeLookup.set(
+  0xba,
+  () => new MissingCollectionMasterEditionError()
+);
 createErrorFromNameLookup.set(
   'MissingCollectionMasterEdition',
-  () => new MissingCollectionMasterEditionError(),
+  () => new MissingCollectionMasterEditionError()
 );
 
 /**
@@ -4014,7 +4499,10 @@ export class InvalidTokenRecordError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xbb, () => new InvalidTokenRecordError());
-createErrorFromNameLookup.set('InvalidTokenRecord', () => new InvalidTokenRecordError());
+createErrorFromNameLookup.set(
+  'InvalidTokenRecord',
+  () => new InvalidTokenRecordError()
+);
 
 /**
  * InvalidCloseAuthority: 'The close authority needs to be revoked by the Utility Delegate'
@@ -4034,7 +4522,10 @@ export class InvalidCloseAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xbc, () => new InvalidCloseAuthorityError());
-createErrorFromNameLookup.set('InvalidCloseAuthority', () => new InvalidCloseAuthorityError());
+createErrorFromNameLookup.set(
+  'InvalidCloseAuthority',
+  () => new InvalidCloseAuthorityError()
+);
 
 /**
  * InvalidInstruction: 'Invalid or removed instruction'
@@ -4054,7 +4545,10 @@ export class InvalidInstructionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xbd, () => new InvalidInstructionError());
-createErrorFromNameLookup.set('InvalidInstruction', () => new InvalidInstructionError());
+createErrorFromNameLookup.set(
+  'InvalidInstruction',
+  () => new InvalidInstructionError()
+);
 
 /**
  * MissingDelegateRecord: 'Missing delegate record'
@@ -4074,7 +4568,10 @@ export class MissingDelegateRecordError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xbe, () => new MissingDelegateRecordError());
-createErrorFromNameLookup.set('MissingDelegateRecord', () => new MissingDelegateRecordError());
+createErrorFromNameLookup.set(
+  'MissingDelegateRecord',
+  () => new MissingDelegateRecordError()
+);
 
 /**
  * InvalidFeeAccount: ''
@@ -4094,7 +4591,10 @@ export class InvalidFeeAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xbf, () => new InvalidFeeAccountError());
-createErrorFromNameLookup.set('InvalidFeeAccount', () => new InvalidFeeAccountError());
+createErrorFromNameLookup.set(
+  'InvalidFeeAccount',
+  () => new InvalidFeeAccountError()
+);
 
 /**
  * InvalidMetadataFlags: ''
@@ -4114,7 +4614,10 @@ export class InvalidMetadataFlagsError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xc0, () => new InvalidMetadataFlagsError());
-createErrorFromNameLookup.set('InvalidMetadataFlags', () => new InvalidMetadataFlagsError());
+createErrorFromNameLookup.set(
+  'InvalidMetadataFlags',
+  () => new InvalidMetadataFlagsError()
+);
 
 /**
  * Attempts to resolve a custom program error from the provided error code.

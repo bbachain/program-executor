@@ -15,5 +15,5 @@ export const collectionBeet = new beet.BeetArgsStruct<Collection>(
     ['verified', beet.bool],
     ['key', beetBBA.publicKey],
   ],
-  'Collection',
+  'Collection'
 );

@@ -18,5 +18,5 @@ export const createMetadataAccountArgsBeet =
       ['isMutable', beet.bool],
       ['collectionDetails', beet.coption(collectionDetailsBeet)],
     ],
-    'CreateMetadataAccountArgs',
+    'CreateMetadataAccountArgs'
   );

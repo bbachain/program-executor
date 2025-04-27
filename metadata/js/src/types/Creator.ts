@@ -17,5 +17,5 @@ export const creatorBeet = new beet.BeetArgsStruct<Creator>(
     ['verified', beet.bool],
     ['share', beet.u8],
   ],
-  'Creator',
+  'Creator'
 );

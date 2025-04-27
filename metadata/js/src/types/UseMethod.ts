@@ -12,7 +12,6 @@ export enum UseMethod {
 /**
  * @category userTypes
  */
-export const useMethodBeet = beet.fixedScalarEnum(UseMethod) as beet.FixedSizeBeet<
-  UseMethod,
+export const useMethodBeet = beet.fixedScalarEnum(
   UseMethod
->;
+) as beet.FixedSizeBeet<UseMethod, UseMethod>;
