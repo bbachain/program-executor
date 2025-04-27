@@ -1,7 +1,5 @@
 use borsh::{maybestd::io::Error as BorshError, BorshDeserialize};
-use solana_program::{
-    account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey,
-};
+use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 use spl_utils::{
     create_or_allocate_account_raw,
     token::{get_mint_authority, SPL_TOKEN_PROGRAM_IDS},
@@ -16,7 +14,7 @@ use crate::{
     },
     state::{
         Collection, CollectionDetails, Data, Key, Metadata, TokenStandard, Uses, MAX_METADATA_LEN,
-        PREFIX,
+        METADATA_FEE_FLAG_OFFSET, PREFIX,
     },
 };
 
@@ -191,4 +189,21 @@ pub fn meta_deser_unchecked(buf: &mut &[u8]) -> Result<Metadata, BorshError> {
     };
 
     Ok(metadata)
+}
+
+pub fn clean_write_metadata(
+    metadata: &mut Metadata,
+    metadata_account_info: &AccountInfo,
+) -> ProgramResult {
+    let end = metadata_account_info
+        .data_len()
+        .checked_sub(METADATA_FEE_FLAG_OFFSET)
+        .ok_or(MetadataError::NumericalOverflowError)?;
+    // Clear all data to ensure it is serialized cleanly with no trailing data due to creators array resizing.
+    let mut metadata_account_info_data = metadata_account_info.try_borrow_mut_data()?;
+    // Don't overwrite fee flag.
+    metadata_account_info_data[0..end].fill(0);
+
+    metadata.save(&mut metadata_account_info_data)?;
+    Ok(())
 }

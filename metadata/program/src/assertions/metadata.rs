@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use solana_program::{entrypoint::ProgramResult, pubkey::Pubkey};
+use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 use crate::{
     error::MetadataError,
@@ -139,6 +139,21 @@ pub fn assert_data_valid(
                 return Err(MetadataError::CannotUnverifyAnotherCreator.into());
             }
         }
+    }
+
+    Ok(())
+}
+
+pub fn assert_update_authority_is_correct(
+    metadata: &Metadata,
+    update_authority_info: &AccountInfo,
+) -> ProgramResult {
+    if metadata.update_authority != *update_authority_info.key {
+        return Err(MetadataError::UpdateAuthorityIncorrect.into());
+    }
+
+    if !update_authority_info.is_signer {
+        return Err(MetadataError::UpdateAuthorityIsNotSigner.into());
     }
 
     Ok(())
