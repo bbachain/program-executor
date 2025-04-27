@@ -5,5 +5,6 @@ export * from './Creator';
 export * from './Data';
 export * from './Key';
 export * from './TokenStandard';
+export * from './UpdateMetadataAccountArgs';
 export * from './UseMethod';
 export * from './Uses';
