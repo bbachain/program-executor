@@ -15,4 +15,4 @@ pub mod utils;
 pub use solana_program;
 
 // SPL Token Metadata Program ID
-solana_program::declare_id!("metaAig5QsCBSfstkwqPQxzdjXdUB8JxjfvtvEPNe3F");
+solana_program::declare_id!("meta9hXUUHmM7FT8haXiCVsw168kWb8UkFFhAWMEzim");
