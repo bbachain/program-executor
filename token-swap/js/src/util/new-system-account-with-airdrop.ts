@@ -1,15 +1,15 @@
 import {Account, Connection} from '@solana/web3.js';
 
 /**
- * Create a new system account and airdrop it some lamports
+ * Create a new system account and airdrop it some daltons
  *
  * @private
  */
 export async function newSystemAccountWithAirdrop(
   connection: Connection,
-  lamports: number = 1,
+  daltons: number = 1,
 ): Promise<Account> {
   const account = new Account();
-  await connection.requestAirdrop(account.publicKey, lamports);
+  await connection.requestAirdrop(account.publicKey, daltons);
   return account;
 }

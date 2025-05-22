@@ -1128,7 +1128,7 @@ async fn command_wrap(
     wrapped_sol_account: Option<Pubkey>,
     bulk_signers: BulkSigners,
 ) -> CommandResult {
-    let lamports = sol_to_lamports(sol);
+    let daltons = sol_to_lamports(sol);
 
     let native_mint = native_mint(&config.program_id)?;
     let instructions = if let Some(wrapped_sol_account) = wrapped_sol_account {
@@ -1140,7 +1140,7 @@ async fn command_wrap(
             system_instruction::create_account(
                 &wallet_address,
                 &wrapped_sol_account,
-                lamports,
+                daltons,
                 Account::LEN as u64,
                 &config.program_id,
             ),
@@ -1173,7 +1173,7 @@ async fn command_wrap(
 
         println_display(config, format!("Wrapping {} SOL into {}", sol, account));
         vec![
-            system_instruction::transfer(&wallet_address, &account, lamports),
+            system_instruction::transfer(&wallet_address, &account, daltons),
             create_associated_token_account(
                 &config.fee_payer,
                 &wallet_address,
@@ -1183,7 +1183,7 @@ async fn command_wrap(
         ]
     };
     if !config.sign_only {
-        check_wallet_balance(config, &wallet_address, lamports).await?;
+        check_wallet_balance(config, &wallet_address, daltons).await?;
     }
     let tx_return = handle_tx(
         &CliSignerInfo {
@@ -1222,8 +1222,8 @@ async fn command_unwrap(
     });
     println_display(config, format!("Unwrapping {}", address));
     if !config.sign_only {
-        let lamports = config.rpc_client.get_balance(&address).await?;
-        if lamports == 0 {
+        let daltons = config.rpc_client.get_balance(&address).await?;
+        if daltons == 0 {
             if use_associated_account {
                 return Err("No wrapped SOL in associated account; did you mean to specify an auxiliary address?".to_string().into());
             } else {
@@ -1232,7 +1232,7 @@ async fn command_unwrap(
         }
         println_display(
             config,
-            format!("  Amount: {} SOL", lamports_to_sol(lamports)),
+            format!("  Amount: {} SOL", lamports_to_sol(daltons)),
         );
     }
     println_display(config, format!("  Recipient: {}", &wallet_address));
@@ -2615,7 +2615,7 @@ fn app<'a, 'b>(
         )
         .subcommand(
             SubCommand::with_name(CommandName::SyncNative.into())
-                .about("Sync a native SOL token account to its underlying lamports")
+                .about("Sync a native SOL token account to its underlying daltons")
                 .arg(
                     owner_address_arg()
                         .index(1)

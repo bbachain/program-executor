@@ -36,7 +36,7 @@ export const HASH_PREFIX = 'SPL Name Service';
  * @param space The space in bytes allocated to the account
  * @param payerKey The allocation cost payer
  * @param nameOwner The pubkey to be set as owner of the new name account
- * @param lamports The budget to be set for the name account. If not specified, it'll be the minimum for rent exemption
+ * @param daltons The budget to be set for the name account. If not specified, it'll be the minimum for rent exemption
  * @param nameClass The class of this new name
  * @param parentName The parent name of the new name. If specified its owner needs to sign
  * @returns
@@ -47,7 +47,7 @@ export async function createNameRegistry(
   space: number,
   payerKey: PublicKey,
   nameOwner: PublicKey,
-  lamports?: number,
+  daltons?: number,
   nameClass?: PublicKey,
   parentName?: PublicKey
 ): Promise<TransactionInstruction> {
@@ -58,8 +58,8 @@ export async function createNameRegistry(
     parentName
   );
 
-  const balance = lamports
-    ? lamports
+  const balance = daltons
+    ? daltons
     : await connection.getMinimumBalanceForRentExemption(space);
 
   let nameParentOwner: PublicKey | undefined;

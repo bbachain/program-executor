@@ -1,11 +1,8 @@
 [package]
 name = "spl-token-swap"
-version = "3.0.0"
-description = "Solana Program Library Token Swap"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana-program-library"
-license = "Apache-2.0"
+version = "0.1.0"
 edition = "2018"
+license = "Apache-2.0"
 
 [features]
 no-entrypoint = []
@@ -17,7 +14,7 @@ arrayref = "0.3.6"
 enum_dispatch = "0.3.7"
 num-derive = "0.3"
 num-traits = "0.2"
-solana-program = "1.10.33"
+solana-program = {version = "0.1.4", path = "../../../bbachain/sdk/program"}
 spl-math = { version = "0.1", path = "../../libraries/math", features = [ "no-entrypoint" ] }
 spl-token = { version = "3.5", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
@@ -25,7 +22,7 @@ arbitrary = { version = "1.0", features = ["derive"], optional = true }
 roots = { version = "0.0.7", optional = true }
 
 [dev-dependencies]
-solana-sdk = "1.10.33"
+solana-sdk = {version = "0.1.4", path = "../../../bbachain/sdk"}
 proptest = "1.0"
 sim =  { path = "./sim" }
 roots = "0.0.7"

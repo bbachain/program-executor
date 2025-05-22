@@ -106,10 +106,10 @@ pub fn process_instruction(
                 return Err(ProgramError::UninitializedAccount);
             }
             check_authority(authority_info, &account_data.authority)?;
-            let destination_starting_lamports = destination_info.lamports();
-            let data_lamports = data_info.lamports();
-            **data_info.lamports.borrow_mut() = 0;
-            **destination_info.lamports.borrow_mut() = destination_starting_lamports
+            let destination_starting_lamports = destination_info.daltons();
+            let data_lamports = data_info.daltons();
+            **data_info.daltons.borrow_mut() = 0;
+            **destination_info.daltons.borrow_mut() = destination_starting_lamports
                 .checked_add(data_lamports)
                 .ok_or(RecordError::Overflow)?;
             account_data.data = Data::default();

@@ -24,11 +24,11 @@ pub fn create_pda_account<'a>(
     new_pda_account: &AccountInfo<'a>,
     new_pda_signer_seeds: &[&[u8]],
 ) -> ProgramResult {
-    if new_pda_account.lamports() > 0 {
+    if new_pda_account.daltons() > 0 {
         let required_lamports = rent
             .minimum_balance(space)
             .max(1)
-            .saturating_sub(new_pda_account.lamports());
+            .saturating_sub(new_pda_account.daltons());
 
         if required_lamports > 0 {
             invoke(

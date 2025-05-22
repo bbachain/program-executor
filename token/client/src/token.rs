@@ -471,7 +471,7 @@ where
         let account = self.get_associated_token_address(owner);
         match self.get_account_info(&account).await {
             Ok(account) => Ok(account),
-            // AccountInvalidOwner is possible if account already received some lamports.
+            // AccountInvalidOwner is possible if account already received some daltons.
             Err(TokenError::AccountNotFound) | Err(TokenError::AccountInvalidOwner) => {
                 self.create_associated_token_account(owner).await?;
                 self.get_account_info(&account).await
@@ -767,7 +767,7 @@ where
         .await
     }
 
-    /// Sync native account lamports
+    /// Sync native account daltons
     pub async fn sync_native(&self, account: &Pubkey) -> TokenResult<T::Output> {
         self.process_ixs::<[&dyn Signer; 0]>(
             &[instruction::sync_native(&self.program_id, account)?],

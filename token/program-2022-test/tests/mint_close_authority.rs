@@ -168,7 +168,7 @@ async fn success_close() {
         .await
         .unwrap();
     let destination = token.get_account(&destination).await.unwrap();
-    assert!(destination.lamports > 0);
+    assert!(destination.daltons > 0);
 }
 
 #[tokio::test]

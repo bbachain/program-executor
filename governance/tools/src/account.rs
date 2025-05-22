@@ -142,10 +142,10 @@ pub fn create_and_serialize_account_with_owner_signed<'a, T: BorshSerialize + Ac
 
     let rent_exempt_lamports = rent.minimum_balance(account_size).max(1);
 
-    // If the account has some lamports already it can't be created using create_account instruction
-    // Anybody can send lamports to a PDA and by doing so create the account and perform DoS attack by blocking create_account
-    if account_info.lamports() > 0 {
-        let top_up_lamports = rent_exempt_lamports.saturating_sub(account_info.lamports());
+    // If the account has some daltons already it can't be created using create_account instruction
+    // Anybody can send daltons to a PDA and by doing so create the account and perform DoS attack by blocking create_account
+    if account_info.daltons() > 0 {
+        let top_up_lamports = rent_exempt_lamports.saturating_sub(account_info.daltons());
 
         if top_up_lamports > 0 {
             invoke(
@@ -256,14 +256,14 @@ pub fn assert_is_valid_account_of_types<T: BorshDeserialize + PartialEq, F: Fn(&
     Ok(())
 }
 
-/// Disposes account by transferring its lamports to the beneficiary account and zeros its data
-// After transaction completes the runtime would remove the account with no lamports
+/// Disposes account by transferring its daltons to the beneficiary account and zeros its data
+// After transaction completes the runtime would remove the account with no daltons
 pub fn dispose_account(account_info: &AccountInfo, beneficiary_info: &AccountInfo) {
-    let account_lamports = account_info.lamports();
-    **account_info.lamports.borrow_mut() = 0;
+    let account_lamports = account_info.daltons();
+    **account_info.daltons.borrow_mut() = 0;
 
-    **beneficiary_info.lamports.borrow_mut() = beneficiary_info
-        .lamports()
+    **beneficiary_info.daltons.borrow_mut() = beneficiary_info
+        .daltons()
         .checked_add(account_lamports)
         .unwrap();
 
