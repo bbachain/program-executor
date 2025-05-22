@@ -1,5 +1,5 @@
-import type {Connection} from '@solana/web3.js';
-import {PublicKey} from '@solana/web3.js';
+import type {Connection} from '@bbachain/web3.js';
+import {PublicKey} from '@bbachain/web3.js';
 
 export async function loadAccount(
   connection: Connection,

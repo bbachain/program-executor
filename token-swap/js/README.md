@@ -8,7 +8,7 @@ The Token-swap JavaScript library comprises:
 
 ## Getting Started
 
-First fetch the npm dependencies, including `@solana/web3.js`, by running:
+First fetch the npm dependencies, including `@bbachain/web3.js`, by running:
 ```sh
 $ npm install
 ```

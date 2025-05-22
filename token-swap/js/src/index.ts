@@ -1,12 +1,12 @@
 import assert from 'assert';
 import BN from 'bn.js';
 import {Buffer} from 'buffer';
-import * as BufferLayout from '@solana/buffer-layout';
+import * as BufferLayout from '@bbachain/buffer-layout';
 import type {
   ConfirmOptions,
   Connection,
   TransactionSignature,
-} from '@solana/web3.js';
+} from '@bbachain/web3.js';
 import {
   Account,
   PublicKey,
@@ -14,17 +14,13 @@ import {
   Transaction,
   TransactionInstruction,
   sendAndConfirmTransaction,
-} from '@solana/web3.js';
+} from '@bbachain/web3.js';
 
 import * as Layout from './layout';
 import {loadAccount} from './util/account';
 
 export const TOKEN_SWAP_PROGRAM_ID: PublicKey = new PublicKey(
-  'SwapsVeCiPHMUAtzQWZw7RjsKjgCjhwU55QGu4U1Szw',
-);
-
-export const OLD_TOKEN_SWAP_PROGRAM_ID: PublicKey = new PublicKey(
-  'SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8',
+  'SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX',
 );
 
 /**

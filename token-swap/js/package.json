@@ -1,17 +1,9 @@
 {
-  "name": "@solana/spl-token-swap",
-  "version": "0.2.0",
-  "description": "SPL Token Swap JavaScript API",
-  "license": "MIT",
-  "author": "Solana Maintainers <maintainers@solana.foundation>",
-  "homepage": "https://solana.com/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/solana-labs/solana-program-library"
-  },
-  "bugs": {
-    "url": "https://github.com/solana-labs/solana-program-library/issues"
-  },
+  "name": "@bbachain/spl-token-swap",
+  "version": "0.1.0",
+  "author": "BBAChain Labs <developers@bbachain.com>",
+  "repository": "https://github.com/bbachain/program-executor",
+  "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +24,7 @@
     "build": "tsc -p tsconfig.json && tsc-esm -p tsconfig.json && tsc -p tsconfig.cjs.json",
     "postbuild": "echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
     "test": "ts-node test/main.ts",
-    "start-with-test-validator": "start-server-and-test 'solana-test-validator --bpf-program SwapsVeCiPHMUAtzQWZw7RjsKjgCjhwU55QGu4U1Szw ../../target/deploy/spl_token_swap.so --reset --quiet' http://localhost:8899/health test",
+    "start-with-test-validator": "start-server-and-test 'solana-test-validator --bpf-program SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX ../../target/deploy/spl_token_swap.so --reset --quiet' http://localhost:8899/health test",
     "lint": "npm run pretty && eslint --max-warnings 0 .",
     "lint:fix": "npm run pretty:fix && eslint . --fix",
     "build:program": "cargo build-bpf --manifest-path ../program/Cargo.toml",
@@ -42,11 +34,11 @@
   "keywords": [],
   "dependencies": {
     "bn.js": "^5.1.3",
-    "@solana/web3.js": "^1.42.0",
-    "@solana/buffer-layout": "^4.0.0"
+    "@bbachain/web3.js": "^1.0.3",
+    "@bbachain/buffer-layout": "^1.0.0"
   },
   "devDependencies": {
-    "@solana/spl-token": "0.1.8",
+    "@bbachain/spl-token": "^0.1.5",
     "@types/bn.js": "^5.1.0",
     "eslint": "^7.9.0",
     "eslint-plugin-import": "^2.22.0",
