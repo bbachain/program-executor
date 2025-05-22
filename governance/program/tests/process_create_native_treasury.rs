@@ -121,7 +121,7 @@ async fn test_execute_transfer_from_native_treasury() {
         .unwrap();
 
     assert_eq!(
-        wallet_account.lamports,
-        wallet_cookie.account.lamports + transfer_amount
+        wallet_account.daltons,
+        wallet_cookie.account.daltons + transfer_amount
     )
 }

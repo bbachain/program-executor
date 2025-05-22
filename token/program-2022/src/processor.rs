@@ -56,7 +56,7 @@ impl Processor {
             Rent::get()?
         };
 
-        if !rent.is_exempt(mint_info.lamports(), mint_data_len) {
+        if !rent.is_exempt(mint_info.daltons(), mint_data_len) {
             return Err(TokenError::NotRentExempt.into());
         }
 
@@ -133,7 +133,7 @@ impl Processor {
         let mut account =
             StateWithExtensionsMut::<Account>::unpack_uninitialized(&mut account_data)?;
 
-        if !rent.is_exempt(new_account_info.lamports(), new_account_info_data_len) {
+        if !rent.is_exempt(new_account_info.daltons(), new_account_info_data_len) {
             return Err(TokenError::NotRentExempt.into());
         }
 
@@ -170,7 +170,7 @@ impl Processor {
             let rent_exempt_reserve = rent.minimum_balance(new_account_info_data_len);
             account.base.is_native = COption::Some(rent_exempt_reserve);
             account.base.amount = new_account_info
-                .lamports()
+                .daltons()
                 .checked_sub(rent_exempt_reserve)
                 .ok_or(TokenError::Overflow)?;
         } else {
@@ -218,7 +218,7 @@ impl Processor {
             return Err(TokenError::AlreadyInUse.into());
         }
 
-        if !rent.is_exempt(multisig_info.lamports(), multisig_info_data_len) {
+        if !rent.is_exempt(multisig_info.daltons(), multisig_info_data_len) {
             return Err(TokenError::NotRentExempt.into());
         }
 
@@ -411,13 +411,13 @@ impl Processor {
         }
 
         if source_account.base.is_native() {
-            let source_starting_lamports = source_account_info.lamports();
-            **source_account_info.lamports.borrow_mut() = source_starting_lamports
+            let source_starting_lamports = source_account_info.daltons();
+            **source_account_info.daltons.borrow_mut() = source_starting_lamports
                 .checked_sub(amount)
                 .ok_or(TokenError::Overflow)?;
 
-            let destination_starting_lamports = destination_account_info.lamports();
-            **destination_account_info.lamports.borrow_mut() = destination_starting_lamports
+            let destination_starting_lamports = destination_account_info.daltons();
+            **destination_account_info.daltons.borrow_mut() = destination_starting_lamports
                 .checked_add(amount)
                 .ok_or(TokenError::Overflow)?;
         }
@@ -928,12 +928,12 @@ impl Processor {
             return Err(ProgramError::UninitializedAccount);
         }
 
-        let destination_starting_lamports = destination_account_info.lamports();
-        **destination_account_info.lamports.borrow_mut() = destination_starting_lamports
-            .checked_add(source_account_info.lamports())
+        let destination_starting_lamports = destination_account_info.daltons();
+        **destination_account_info.daltons.borrow_mut() = destination_starting_lamports
+            .checked_add(source_account_info.daltons())
             .ok_or(TokenError::Overflow)?;
 
-        **source_account_info.lamports.borrow_mut() = 0;
+        **source_account_info.daltons.borrow_mut() = 0;
         drop(source_account_data);
         delete_account(source_account_info)?;
 
@@ -1003,7 +1003,7 @@ impl Processor {
 
         if let COption::Some(rent_exempt_reserve) = native_account.base.is_native {
             let new_amount = native_account_info
-                .lamports()
+                .daltons()
                 .checked_sub(rent_exempt_reserve)
                 .ok_or(TokenError::Overflow)?;
             if new_amount < native_account.base.amount {
@@ -1120,7 +1120,7 @@ impl Processor {
 
         let rent = Rent::get()?;
         let new_minimum_balance = rent.minimum_balance(Mint::get_packed_len());
-        let lamports_diff = new_minimum_balance.saturating_sub(native_mint_info.lamports());
+        let lamports_diff = new_minimum_balance.saturating_sub(native_mint_info.daltons());
         invoke(
             &system_instruction::transfer(payer_info.key, native_mint_info.key, lamports_diff),
             &[
@@ -1588,7 +1588,7 @@ mod tests {
             )
         );
 
-        mint_account.lamports = mint_minimum_balance();
+        mint_account.daltons = mint_minimum_balance();
 
         // create new mint
         do_process_instruction(
@@ -1635,7 +1635,7 @@ mod tests {
             )
         );
 
-        mint_account.lamports = mint_minimum_balance();
+        mint_account.daltons = mint_minimum_balance();
 
         // create new mint
         do_process_instruction(
@@ -1689,7 +1689,7 @@ mod tests {
             )
         );
 
-        account_account.lamports = account_minimum_balance();
+        account_account.daltons = account_minimum_balance();
 
         // mint is not valid (not initialized)
         assert_eq!(
@@ -5066,7 +5066,7 @@ mod tests {
             )
         );
 
-        multisig_account.lamports = multisig_minimum_balance();
+        multisig_account.daltons = multisig_minimum_balance();
         let mut multisig_account2 = multisig_account.clone();
 
         // single signer
@@ -5461,7 +5461,7 @@ mod tests {
         for (signer, key) in signers.iter_mut().zip(&signer_keys) {
             signer.key = key;
         }
-        let mut lamports = 0;
+        let mut daltons = 0;
         let mut data = vec![0; Multisig::get_packed_len()];
         let mut multisig = Multisig::unpack_unchecked(&data).unwrap();
         multisig.m = MAX_SIGNERS as u8;
@@ -5473,7 +5473,7 @@ mod tests {
             &owner_key,
             false,
             false,
-            &mut lamports,
+            &mut daltons,
             &mut data,
             &program_id,
             false,
@@ -5482,7 +5482,7 @@ mod tests {
 
         // no multisig, but the account is its own authority, and data is mutably borrowed
         {
-            let mut lamports = 0;
+            let mut daltons = 0;
             let mut data = vec![0; Account::get_packed_len()];
             let mut account = Account::unpack_unchecked(&data).unwrap();
             account.owner = account_to_validate;
@@ -5491,7 +5491,7 @@ mod tests {
                 &account_to_validate,
                 true,
                 false,
-                &mut lamports,
+                &mut daltons,
                 &mut data,
                 &program_id,
                 false,
@@ -5924,7 +5924,7 @@ mod tests {
                 ],
             )
         );
-        assert_eq!(account_account.lamports, account_minimum_balance());
+        assert_eq!(account_account.daltons, account_minimum_balance());
 
         // empty account
         do_process_instruction(
@@ -5956,8 +5956,8 @@ mod tests {
             ],
         )
         .unwrap();
-        assert_eq!(account_account.lamports, 0);
-        assert_eq!(account3_account.lamports, 2 * account_minimum_balance());
+        assert_eq!(account_account.daltons, 0);
+        assert_eq!(account3_account.daltons, 2 * account_minimum_balance());
         let account = Account::unpack_unchecked(&account_account.data).unwrap();
         assert_eq!(account.amount, 0);
 
@@ -5984,7 +5984,7 @@ mod tests {
             ],
         )
         .unwrap();
-        account_account.lamports = 2;
+        account_account.daltons = 2;
 
         do_process_instruction(
             set_authority(
@@ -6023,8 +6023,8 @@ mod tests {
             ],
         )
         .unwrap();
-        assert_eq!(account_account.lamports, 0);
-        assert_eq!(account3_account.lamports, 2 * account_minimum_balance() + 2);
+        assert_eq!(account_account.daltons, 0);
+        assert_eq!(account3_account.daltons, 2 * account_minimum_balance() + 2);
         let account = Account::unpack_unchecked(&account_account.data).unwrap();
         assert_eq!(account.amount, 0);
 
@@ -6040,7 +6040,7 @@ mod tests {
         .unwrap();
         assert_eq!(account2_account.data, [0u8; Account::LEN]);
         assert_eq!(
-            account3_account.lamports,
+            account3_account.daltons,
             3 * account_minimum_balance() + 2 + 42
         );
     }
@@ -6200,11 +6200,11 @@ mod tests {
             ],
         )
         .unwrap();
-        assert_eq!(account_account.lamports, account_minimum_balance());
+        assert_eq!(account_account.daltons, account_minimum_balance());
         let account = Account::unpack_unchecked(&account_account.data).unwrap();
         assert!(account.is_native());
         assert_eq!(account.amount, 0);
-        assert_eq!(account2_account.lamports, account_minimum_balance() + 40);
+        assert_eq!(account2_account.daltons, account_minimum_balance() + 40);
         let account = Account::unpack_unchecked(&account2_account.data).unwrap();
         assert!(account.is_native());
         assert_eq!(account.amount, 40);
@@ -6255,8 +6255,8 @@ mod tests {
             ],
         )
         .unwrap();
-        assert_eq!(account_account.lamports, 0);
-        assert_eq!(account3_account.lamports, 2 * account_minimum_balance());
+        assert_eq!(account_account.daltons, 0);
+        assert_eq!(account3_account.daltons, 2 * account_minimum_balance());
         assert_eq!(account_account.data, [0u8; Account::LEN]);
     }
 
@@ -6871,9 +6871,9 @@ mod tests {
         let mut mint_account =
             SolanaAccount::new(mint_minimum_balance(), Mint::get_packed_len(), &program_id);
         let native_account_key = Pubkey::new_unique();
-        let lamports = 40;
+        let daltons = 40;
         let mut native_account = SolanaAccount::new(
-            account_minimum_balance() + lamports,
+            account_minimum_balance() + daltons,
             Account::get_packed_len(),
             &program_id,
         );
@@ -6962,7 +6962,7 @@ mod tests {
 
         let account = Account::unpack_unchecked(&native_account.data).unwrap();
         assert!(account.is_native());
-        assert_eq!(account.amount, lamports);
+        assert_eq!(account.amount, daltons);
 
         // sync, no change
         do_process_instruction(
@@ -6971,11 +6971,11 @@ mod tests {
         )
         .unwrap();
         let account = Account::unpack_unchecked(&native_account.data).unwrap();
-        assert_eq!(account.amount, lamports);
+        assert_eq!(account.amount, daltons);
 
         // transfer sol
-        let new_lamports = lamports + 50;
-        native_account.lamports = account_minimum_balance() + new_lamports;
+        let new_lamports = daltons + 50;
+        native_account.daltons = account_minimum_balance() + new_lamports;
 
         // success sync
         do_process_instruction(
@@ -6987,7 +6987,7 @@ mod tests {
         assert_eq!(account.amount, new_lamports);
 
         // reduce sol
-        native_account.lamports -= 1;
+        native_account.daltons -= 1;
 
         // fail sync
         assert_eq!(

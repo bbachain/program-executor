@@ -5,11 +5,11 @@ import {
   SystemProgram,
   Transaction,
   sendAndConfirmTransaction
-} from '@solana/web3.js';
-import {AccountLayout, Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
+} from '@bbachain/web3.js';
+import {AccountLayout, Token, TOKEN_PROGRAM_ID} from '@bbachain/spl-token';
 
 import {TokenSwap, CurveType, TOKEN_SWAP_PROGRAM_ID} from '../src';
-import {newAccountWithLamports} from '../src/util/new-account-with-lamports';
+import {newAccountWithLamports} from '../src/util/new-account-with-daltons';
 import {sleep} from '../src/util/sleep';
 import {Numberu64} from '../src';
 
@@ -371,7 +371,7 @@ export async function createAccountAndSwapAtomic(): Promise<void> {
     SystemProgram.createAccount({
       fromPubkey: owner.publicKey,
       newAccountPubkey: newAccount.publicKey,
-      lamports: balanceNeeded,
+      daltons: balanceNeeded,
       space: AccountLayout.span,
       programId: mintB.programId,
     }),

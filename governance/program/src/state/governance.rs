@@ -509,13 +509,13 @@ mod test {
         let program_id = Pubkey::new_unique();
 
         let info_key = Pubkey::new_unique();
-        let mut lamports = 10u64;
+        let mut daltons = 10u64;
 
         let governance_info = AccountInfo::new(
             &info_key,
             false,
             false,
-            &mut lamports,
+            &mut daltons,
             &mut account_data[..],
             &program_id,
             false,

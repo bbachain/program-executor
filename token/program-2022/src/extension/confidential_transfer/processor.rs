@@ -301,7 +301,7 @@ fn process_deposit(
             return Err(TokenError::MintMismatch.into());
         }
 
-        // Wrapped SOL deposits are not supported because lamports cannot be vanished.
+        // Wrapped SOL deposits are not supported because daltons cannot be vanished.
         assert!(!token_account.base.is_native());
         token_account.base.amount = token_account
             .base
@@ -463,7 +463,7 @@ fn process_withdraw(
             return Err(TokenError::MintMismatch.into());
         }
 
-        // Wrapped SOL withdrawals are not supported because lamports cannot be apparated.
+        // Wrapped SOL withdrawals are not supported because daltons cannot be apparated.
         assert!(!destination_token_account.base.is_native());
         destination_token_account.base.amount = destination_token_account
             .base
