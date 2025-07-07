@@ -33,7 +33,7 @@ export const initializeInstructionDiscriminator = 0;
  *
  * @param accounts that will be accessed while the instruction is processed
  * @param args to provide as instruction data to the program
- * 
+ *
  * @category Instructions
  * @category Initialize
  */
@@ -109,9 +109,6 @@ const initializeInstructionStruct = new beet.FixableBeetArgsStruct<
     instructionDiscriminator: number;
   }
 >(
-  [
-    ['instructionDiscriminator', beet.u8],
-    ...initializeArgsBeet.fields,
-  ],
+  [['instructionDiscriminator', beet.u8], ...initializeArgsBeet.fields],
   'InitializeInstructionArgs'
 );

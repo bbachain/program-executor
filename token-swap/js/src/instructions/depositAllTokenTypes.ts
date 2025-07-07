@@ -1,6 +1,9 @@
 import * as beet from '@bbachain/beet';
 import * as web3 from '@bbachain/web3.js';
-import { DepositAllTokenTypesArgs, depositAllTokenTypesArgsBeet } from '../types';
+import {
+  DepositAllTokenTypesArgs,
+  depositAllTokenTypesArgsBeet,
+} from '../types';
 
 /**
  * @category Instructions
@@ -37,7 +40,7 @@ export const depositAllTokenTypesInstructionDiscriminator = 2;
  *
  * @param accounts that will be accessed while the instruction is processed
  * @param args to provide as instruction data to the program
- * 
+ *
  * @category Instructions
  * @category DepositAllTokenTypes
  */

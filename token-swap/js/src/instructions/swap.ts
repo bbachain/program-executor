@@ -39,7 +39,7 @@ export const swapInstructionDiscriminator = 1;
  *
  * @param accounts that will be accessed while the instruction is processed
  * @param args to provide as instruction data to the program
- * 
+ *
  * @category Instructions
  * @category Swap
  */
@@ -133,9 +133,6 @@ const swapInstructionStruct = new beet.FixableBeetArgsStruct<
     instructionDiscriminator: number;
   }
 >(
-  [
-    ['instructionDiscriminator', beet.u8],
-    ...swapArgsBeet.fields,
-  ],
+  [['instructionDiscriminator', beet.u8], ...swapArgsBeet.fields],
   'SwapInstructionArgs'
 );

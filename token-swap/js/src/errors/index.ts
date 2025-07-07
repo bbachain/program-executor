@@ -49,7 +49,10 @@ export class InvalidProgramAddressError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x1, () => new InvalidProgramAddressError());
-createErrorFromNameLookup.set('InvalidProgramAddress', () => new InvalidProgramAddressError());
+createErrorFromNameLookup.set(
+  'InvalidProgramAddress',
+  () => new InvalidProgramAddressError()
+);
 
 /**
  * InvalidOwner: 'Input account owner is not the program address'
@@ -89,7 +92,10 @@ export class InvalidOutputOwnerError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x3, () => new InvalidOutputOwnerError());
-createErrorFromNameLookup.set('InvalidOutputOwner', () => new InvalidOutputOwnerError());
+createErrorFromNameLookup.set(
+  'InvalidOutputOwner',
+  () => new InvalidOutputOwnerError()
+);
 
 /**
  * ExpectedMint: 'Deserialized account is not an SPL Token mint'
@@ -129,7 +135,10 @@ export class ExpectedAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x5, () => new ExpectedAccountError());
-createErrorFromNameLookup.set('ExpectedAccount', () => new ExpectedAccountError());
+createErrorFromNameLookup.set(
+  'ExpectedAccount',
+  () => new ExpectedAccountError()
+);
 
 /**
  * EmptySupply: 'Input token account empty'
@@ -189,7 +198,10 @@ export class InvalidDelegateError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x8, () => new InvalidDelegateError());
-createErrorFromNameLookup.set('InvalidDelegate', () => new InvalidDelegateError());
+createErrorFromNameLookup.set(
+  'InvalidDelegate',
+  () => new InvalidDelegateError()
+);
 
 /**
  * InvalidInput: 'InvalidInput'
@@ -229,7 +241,10 @@ export class IncorrectSwapAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xa, () => new IncorrectSwapAccountError());
-createErrorFromNameLookup.set('IncorrectSwapAccount', () => new IncorrectSwapAccountError());
+createErrorFromNameLookup.set(
+  'IncorrectSwapAccount',
+  () => new IncorrectSwapAccountError()
+);
 
 /**
  * IncorrectPoolMint: 'Address of the provided pool token mint is incorrect'
@@ -249,7 +264,10 @@ export class IncorrectPoolMintError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xb, () => new IncorrectPoolMintError());
-createErrorFromNameLookup.set('IncorrectPoolMint', () => new IncorrectPoolMintError());
+createErrorFromNameLookup.set(
+  'IncorrectPoolMint',
+  () => new IncorrectPoolMintError()
+);
 
 /**
  * InvalidOutput: 'InvalidOutput'
@@ -289,7 +307,10 @@ export class CalculationFailureError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xd, () => new CalculationFailureError());
-createErrorFromNameLookup.set('CalculationFailure', () => new CalculationFailureError());
+createErrorFromNameLookup.set(
+  'CalculationFailure',
+  () => new CalculationFailureError()
+);
 
 /**
  * InvalidInstruction: 'Invalid instruction'
@@ -309,7 +330,10 @@ export class InvalidInstructionError extends Error {
 }
 
 createErrorFromCodeLookup.set(0xe, () => new InvalidInstructionError());
-createErrorFromNameLookup.set('InvalidInstruction', () => new InvalidInstructionError());
+createErrorFromNameLookup.set(
+  'InvalidInstruction',
+  () => new InvalidInstructionError()
+);
 
 /**
  * RepeatedMint: 'Swap input token accounts have the same mint'
@@ -349,7 +373,10 @@ export class ExceededSlippageError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x10, () => new ExceededSlippageError());
-createErrorFromNameLookup.set('ExceededSlippage', () => new ExceededSlippageError());
+createErrorFromNameLookup.set(
+  'ExceededSlippage',
+  () => new ExceededSlippageError()
+);
 
 /**
  * InvalidCloseAuthority: 'Token account has a close authority'
@@ -369,7 +396,10 @@ export class InvalidCloseAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x11, () => new InvalidCloseAuthorityError());
-createErrorFromNameLookup.set('InvalidCloseAuthority', () => new InvalidCloseAuthorityError());
+createErrorFromNameLookup.set(
+  'InvalidCloseAuthority',
+  () => new InvalidCloseAuthorityError()
+);
 
 /**
  * InvalidFreezeAuthority: 'Pool token mint has a freeze authority'
@@ -389,7 +419,10 @@ export class InvalidFreezeAuthorityError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x12, () => new InvalidFreezeAuthorityError());
-createErrorFromNameLookup.set('InvalidFreezeAuthority', () => new InvalidFreezeAuthorityError());
+createErrorFromNameLookup.set(
+  'InvalidFreezeAuthority',
+  () => new InvalidFreezeAuthorityError()
+);
 
 /**
  * IncorrectFeeAccount: 'Pool fee token account incorrect'
@@ -409,7 +442,10 @@ export class IncorrectFeeAccountError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x13, () => new IncorrectFeeAccountError());
-createErrorFromNameLookup.set('IncorrectFeeAccount', () => new IncorrectFeeAccountError());
+createErrorFromNameLookup.set(
+  'IncorrectFeeAccount',
+  () => new IncorrectFeeAccountError()
+);
 
 /**
  * ZeroTradingTokens: 'Given pool token amount results in zero trading tokens'
@@ -429,7 +465,10 @@ export class ZeroTradingTokensError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x14, () => new ZeroTradingTokensError());
-createErrorFromNameLookup.set('ZeroTradingTokens', () => new ZeroTradingTokensError());
+createErrorFromNameLookup.set(
+  'ZeroTradingTokens',
+  () => new ZeroTradingTokensError()
+);
 
 /**
  * FeeCalculationFailure: 'Fee calculation failed due to overflow, underflow, or unexpected 0'
@@ -449,7 +488,10 @@ export class FeeCalculationFailureError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x15, () => new FeeCalculationFailureError());
-createErrorFromNameLookup.set('FeeCalculationFailure', () => new FeeCalculationFailureError());
+createErrorFromNameLookup.set(
+  'FeeCalculationFailure',
+  () => new FeeCalculationFailureError()
+);
 
 /**
  * ConversionFailure: 'Conversion to u64 failed with an overflow or underflow'
@@ -469,7 +511,10 @@ export class ConversionFailureError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x16, () => new ConversionFailureError());
-createErrorFromNameLookup.set('ConversionFailure', () => new ConversionFailureError());
+createErrorFromNameLookup.set(
+  'ConversionFailure',
+  () => new ConversionFailureError()
+);
 
 /**
  * InvalidFee: 'The provided fee does not match the program owner\'s constraints'
@@ -481,7 +526,7 @@ export class InvalidFeeError extends Error {
   readonly code: number = 0x17;
   readonly name: string = 'InvalidFee';
   constructor() {
-    super('The provided fee does not match the program owner\'s constraints');
+    super("The provided fee does not match the program owner's constraints");
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, InvalidFeeError);
     }
@@ -501,7 +546,9 @@ export class IncorrectTokenProgramIdError extends Error {
   readonly code: number = 0x18;
   readonly name: string = 'IncorrectTokenProgramId';
   constructor() {
-    super('The provided token program does not match the token program expected by the swap');
+    super(
+      'The provided token program does not match the token program expected by the swap'
+    );
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, IncorrectTokenProgramIdError);
     }
@@ -509,7 +556,10 @@ export class IncorrectTokenProgramIdError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x18, () => new IncorrectTokenProgramIdError());
-createErrorFromNameLookup.set('IncorrectTokenProgramId', () => new IncorrectTokenProgramIdError());
+createErrorFromNameLookup.set(
+  'IncorrectTokenProgramId',
+  () => new IncorrectTokenProgramIdError()
+);
 
 /**
  * UnsupportedCurveType: 'The provided curve type is not supported by the program owner'
@@ -529,7 +579,10 @@ export class UnsupportedCurveTypeError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x19, () => new UnsupportedCurveTypeError());
-createErrorFromNameLookup.set('UnsupportedCurveType', () => new UnsupportedCurveTypeError());
+createErrorFromNameLookup.set(
+  'UnsupportedCurveType',
+  () => new UnsupportedCurveTypeError()
+);
 
 /**
  * InvalidCurve: 'The provided curve parameters are invalid'
@@ -569,7 +622,10 @@ export class UnsupportedCurveOperationError extends Error {
 }
 
 createErrorFromCodeLookup.set(0x1b, () => new UnsupportedCurveOperationError());
-createErrorFromNameLookup.set('UnsupportedCurveOperation', () => new UnsupportedCurveOperationError());
+createErrorFromNameLookup.set(
+  'UnsupportedCurveOperation',
+  () => new UnsupportedCurveOperationError()
+);
 
 /**
  * Attempts to resolve a custom program error from the provided error code.

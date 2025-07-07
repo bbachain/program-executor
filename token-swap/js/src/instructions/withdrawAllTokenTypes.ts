@@ -1,6 +1,9 @@
 import * as beet from '@bbachain/beet';
 import * as web3 from '@bbachain/web3.js';
-import { WithdrawAllTokenTypesArgs, withdrawAllTokenTypesArgsBeet } from '../types';
+import {
+  WithdrawAllTokenTypesArgs,
+  withdrawAllTokenTypesArgsBeet,
+} from '../types';
 
 /**
  * @category Instructions
@@ -39,7 +42,7 @@ export const withdrawAllTokenTypesInstructionDiscriminator = 3;
  *
  * @param accounts that will be accessed while the instruction is processed
  * @param args to provide as instruction data to the program
- * 
+ *
  * @category Instructions
  * @category WithdrawAllTokenTypes
  */
