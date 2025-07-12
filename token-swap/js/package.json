@@ -28,6 +28,7 @@
         "build": "rimraf dist && tsc -p tsconfig.json",
         "api:gen": "DEBUG='(solita|rustbin):(info|error)' solita",
         "test": "cpr test/fixtures dist/test/fixtures -o && tape dist/test/*.js",
+        "example:create-pool": "ts-node examples/create-liquidity-pool.ts",
         "lint": "eslint \"{src,test}/**/*.ts\" --format stylish",
         "fix:lint": "yarn lint --fix",
         "prettier": "prettier \"{src,test}/**/*.ts\" --check",
@@ -40,6 +41,7 @@
         "@bbachain/buffer-layout": "^1.0.0",
         "@bbachain/buffer-layout-utils": "^1.0.0",
         "@bbachain/web3.js": "^1.0.3",
+        "@bbachain/spl-token": "^0.1.5",
         "@metaplex-foundation/cusper": "^0.0.2",
         "bn.js": "^5.2.0",
         "debug": "^4.3.4",
@@ -63,6 +65,7 @@
         "spok": "^1.4.3",
         "supports-color": "^9.2.3",
         "tape": "^5.5.3",
+        "ts-node": "^10.9.1",
         "typedoc": "^0.23.16",
         "typescript": "^4.9.3"
     }
