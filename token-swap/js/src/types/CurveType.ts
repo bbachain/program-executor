@@ -3,8 +3,7 @@ import * as beet from '@bbachain/beet';
 /**
  * Curve types supported by the token-swap program.
  *
- * @category Enums
- * @category generated
+ * @category enums
  */
 export enum CurveType {
   ConstantProduct,
@@ -15,7 +14,6 @@ export enum CurveType {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const curveTypeBeet = beet.fixedScalarEnum(
   CurveType

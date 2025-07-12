@@ -4,7 +4,6 @@ import * as beet from '@bbachain/beet';
  * Swap instruction arguments
  *
  * @category userTypes
- * @category generated
  */
 export type SwapArgs = {
   amountIn: beet.bignum;
@@ -13,7 +12,6 @@ export type SwapArgs = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const swapArgsBeet = new beet.FixableBeetArgsStruct<SwapArgs>(
   [

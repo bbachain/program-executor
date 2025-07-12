@@ -3,6 +3,7 @@ export * from './accounts';
 export * from './errors';
 export * from './instructions';
 export * from './types';
+export * from './helpers';
 
 /**
  * Program address

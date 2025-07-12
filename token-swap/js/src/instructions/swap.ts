@@ -1,6 +1,7 @@
 import * as beet from '@bbachain/beet';
 import * as web3 from '@bbachain/web3.js';
 import { SwapArgs, swapArgsBeet } from '../types';
+import { PROGRAM_ADDRESS } from '..';
 
 /**
  * @category Instructions
@@ -46,7 +47,7 @@ export const swapInstructionDiscriminator = 1;
 export function createSwapInstruction(
   accounts: SwapInstructionAccounts,
   args: SwapArgs,
-  programId = new web3.PublicKey('SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX')
+  programId = new web3.PublicKey(PROGRAM_ADDRESS)
 ) {
   const [data] = swapInstructionStruct.serialize({
     instructionDiscriminator: swapInstructionDiscriminator,

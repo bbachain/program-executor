@@ -4,6 +4,7 @@ import {
   WithdrawAllTokenTypesArgs,
   withdrawAllTokenTypesArgsBeet,
 } from '../types';
+import { PROGRAM_ADDRESS } from '..';
 
 /**
  * @category Instructions
@@ -49,7 +50,7 @@ export const withdrawAllTokenTypesInstructionDiscriminator = 3;
 export function createWithdrawAllTokenTypesInstruction(
   accounts: WithdrawAllTokenTypesInstructionAccounts,
   args: WithdrawAllTokenTypesArgs,
-  programId = new web3.PublicKey('SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX')
+  programId = new web3.PublicKey(PROGRAM_ADDRESS)
 ) {
   const [data] = withdrawAllTokenTypesInstructionStruct.serialize({
     instructionDiscriminator: withdrawAllTokenTypesInstructionDiscriminator,

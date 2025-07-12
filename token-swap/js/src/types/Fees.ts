@@ -4,7 +4,6 @@ import * as beet from '@bbachain/beet';
  * Fees struct for swap operations
  *
  * @category userTypes
- * @category generated
  */
 export type Fees = {
   tradeFeeNumerator: beet.bignum;
@@ -19,7 +18,6 @@ export type Fees = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const feesBeet = new beet.FixableBeetArgsStruct<Fees>(
   [

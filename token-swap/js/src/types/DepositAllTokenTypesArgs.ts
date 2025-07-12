@@ -4,7 +4,6 @@ import * as beet from '@bbachain/beet';
  * DepositAllTokenTypes instruction arguments
  *
  * @category userTypes
- * @category generated
  */
 export type DepositAllTokenTypesArgs = {
   poolTokenAmount: beet.bignum;
@@ -14,7 +13,6 @@ export type DepositAllTokenTypesArgs = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const depositAllTokenTypesArgsBeet =
   new beet.FixableBeetArgsStruct<DepositAllTokenTypesArgs>(

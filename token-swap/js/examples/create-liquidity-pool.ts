@@ -13,6 +13,8 @@ import {
   Fees,
   SwapCurve,
   PROGRAM_ID,
+  createDefaultFees,
+  createConstantProductCurve,
 } from '../src';
 import {
   createMint,
@@ -291,23 +293,6 @@ async function createLiquidityPoolExample() {
   // Step 7: Configure fees and curve
   console.log('\n=== Configuring Pool ===');
 
-  // const fees: Fees = {
-  //   tradeFeeNumerator: new BN(25), // 0.25% trade fee
-  //   tradeFeeDenominator: new BN(10000),
-  //   ownerTradeFeeNumerator: new BN(5), // 0.05% owner fee
-  //   ownerTradeFeeDenominator: new BN(10000),
-  //   ownerWithdrawFeeNumerator: new BN(0), // No withdraw fee
-  //   ownerWithdrawFeeDenominator: new BN(0),
-  //   hostFeeNumerator: new BN(0), // No host fee
-  //   hostFeeDenominator: new BN(0),
-  // };
-
-  // // Use constant product curve (like Uniswap)
-  // const swapCurve: SwapCurve = {
-  //   curveType: CurveType.ConstantProduct,
-  //   calculator: new Array(32).fill(0), // 32 bytes for curve parameters
-  // };
-
   console.log('Trade Fee: 0.25%');
   console.log('Owner Fee: 0.05%');
   console.log('Curve Type: Constant Product (Uniswap-style)');
@@ -350,94 +335,34 @@ async function createLiquidityPoolExample() {
   console.log('  Data length:', userPoolAccountInfo?.data.length);
   console.log('  Executable:', userPoolAccountInfo?.executable);
 
-  // Step 9: Create initialize instruction (manual to fix beet serialization)
+  // Step 9: Create initialize instruction using the library
   console.log('\n=== Preparing Pool Initialization ===');
 
-  // Create manual instruction data to fix beet serialization issue
-  const instructionData = Buffer.alloc(98);
-  let offset = 0;
+  // Create fees and curve using helper functions
+  const fees = createDefaultFees();
+  const swapCurve = createConstantProductCurve();
 
-  // Instruction discriminator
-  instructionData.writeUInt8(0, offset);
-  offset += 1;
+  console.log('Trade Fee: 0.25%');
+  console.log('Owner Fee: 0.05%');
+  console.log('Curve Type: Constant Product (Uniswap-style)');
 
-  // Fees struct (64 bytes)
-  instructionData.writeBigUInt64LE(BigInt(25), offset); // trade_fee_numerator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(10000), offset); // trade_fee_denominator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(5), offset); // owner_trade_fee_numerator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(10000), offset); // owner_trade_fee_denominator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(0), offset); // owner_withdraw_fee_numerator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(0), offset); // owner_withdraw_fee_denominator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(0), offset); // host_fee_numerator
-  offset += 8;
-  instructionData.writeBigUInt64LE(BigInt(0), offset); // host_fee_denominator
-  offset += 8;
-
-  // SwapCurve struct (33 bytes)
-  instructionData.writeUInt8(0, offset); // curve_type (ConstantProduct)
-  offset += 1;
-  // calculator (32 bytes) - all zeros for ConstantProduct
-  instructionData.fill(0, offset, offset + 32);
-
-  console.log('Manual instruction data length:', instructionData.length);
-  console.log(
-    'Manual instruction data (hex):',
-    instructionData.toString('hex')
+  // Create initialize instruction using the fixed library
+  const initializeInstruction = createInitializeInstruction(
+    {
+      tokenSwap: tokenSwapAccount.publicKey,
+      authority: swapAuthority,
+      tokenA: tokenAAccount,
+      tokenB: tokenBAccount,
+      poolMint: poolMint,
+      feeAccount: poolFeeAccount,
+      destination: userPoolAccount,
+      tokenProgram: TOKEN_PROGRAM_ID,
+    },
+    { fees, swapCurve }
   );
 
-  // Create manual initialize instruction
-  const initializeInstruction = {
-    programId: PROGRAM_ID,
-    keys: [
-      {
-        pubkey: tokenSwapAccount.publicKey,
-        isWritable: true,
-        isSigner: true,
-      },
-      {
-        pubkey: swapAuthority,
-        isWritable: false,
-        isSigner: false,
-      },
-      {
-        pubkey: tokenAAccount,
-        isWritable: false,
-        isSigner: false,
-      },
-      {
-        pubkey: tokenBAccount,
-        isWritable: false,
-        isSigner: false,
-      },
-      {
-        pubkey: poolMint,
-        isWritable: true,
-        isSigner: false,
-      },
-      {
-        pubkey: poolFeeAccount,
-        isWritable: false,
-        isSigner: false,
-      },
-      {
-        pubkey: userPoolAccount,
-        isWritable: true,
-        isSigner: false,
-      },
-      {
-        pubkey: TOKEN_PROGRAM_ID,
-        isWritable: false,
-        isSigner: false,
-      },
-    ],
-    data: instructionData,
-  };
+  console.log('✅ Initialize instruction created successfully');
+  console.log('Instruction data length:', initializeInstruction.data.length);
 
   // Create account instruction for token swap account
   const swapAccountSpace = 324;

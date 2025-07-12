@@ -6,7 +6,7 @@
   "defaultCategory": "sdk",
   "categoryOrder": [
     "Accounts",
-    "Instructions",
+    "Instructions", 
     "Errors",
     "constants",
     "enums",
@@ -17,5 +17,5 @@
   ],
   "readme": "none",
   "emit": "both",
-  "out": "../../docs/metadata"
+  "out": "../../docs/token-swap"
 }

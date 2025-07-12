@@ -1,5 +1,6 @@
 import * as beet from '@bbachain/beet';
 import * as web3 from '@bbachain/web3.js';
+import { PROGRAM_ADDRESS } from '..';
 import {
   DepositAllTokenTypesArgs,
   depositAllTokenTypesArgsBeet,
@@ -47,7 +48,7 @@ export const depositAllTokenTypesInstructionDiscriminator = 2;
 export function createDepositAllTokenTypesInstruction(
   accounts: DepositAllTokenTypesInstructionAccounts,
   args: DepositAllTokenTypesArgs,
-  programId = new web3.PublicKey('SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX')
+  programId = new web3.PublicKey(PROGRAM_ADDRESS)
 ) {
   const [data] = depositAllTokenTypesInstructionStruct.serialize({
     instructionDiscriminator: depositAllTokenTypesInstructionDiscriminator,

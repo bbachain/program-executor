@@ -5,7 +5,6 @@ import { CurveType, curveTypeBeet } from './CurveType';
  * SwapCurve struct containing curve type and calculator
  *
  * @category userTypes
- * @category generated
  */
 export type SwapCurve = {
   curveType: CurveType;
@@ -14,12 +13,11 @@ export type SwapCurve = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const swapCurveBeet = new beet.FixableBeetArgsStruct<SwapCurve>(
   [
     ['curveType', curveTypeBeet],
-    ['calculator', beet.array(beet.u8)], // Fixed 32 bytes
+    ['calculator', beet.uniformFixedSizeArray(beet.u8, 32)], // Fixed 32 bytes without length prefix
   ],
   'SwapCurve'
 );

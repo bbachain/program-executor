@@ -1,6 +1,7 @@
 import * as beet from '@bbachain/beet';
 import * as web3 from '@bbachain/web3.js';
 import { InitializeArgs, initializeArgsBeet } from '../types';
+import { PROGRAM_ADDRESS } from '..';
 
 /**
  * @category Instructions
@@ -40,7 +41,7 @@ export const initializeInstructionDiscriminator = 0;
 export function createInitializeInstruction(
   accounts: InitializeInstructionAccounts,
   args: InitializeArgs,
-  programId = new web3.PublicKey('SwapD4hpSrcB23e4RGdXPBdNzgXoFGaTEa1ZwoouotX')
+  programId = new web3.PublicKey(PROGRAM_ADDRESS)
 ) {
   const [data] = initializeInstructionStruct.serialize({
     instructionDiscriminator: initializeInstructionDiscriminator,

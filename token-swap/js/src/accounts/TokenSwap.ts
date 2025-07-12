@@ -24,7 +24,6 @@ export type TokenSwapArgs = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const tokenSwapBeet = new beet.FixableBeetArgsStruct<
   TokenSwapArgs & {
@@ -121,15 +120,12 @@ export class TokenSwap implements TokenSwapArgs {
   }
 
   /**
-   * Provides a {@link web3.Connection.getProgramAccounts} config
-   * to fetch accounts matching filters that can be passed to this function.
+   * Provides a {@link web3.Connection.getProgramAccounts} config builder,
+   * to fetch accounts matching filters that can be specified via that builder.
    *
-   * @param filters filters used to match accounts
-   * @returns {GetProgramAccountsConfig} config which can be used to fetch accounts
+   * @param programId - the program that owns the accounts we are filtering
    */
-  static gpaBuilder(
-    programId: web3.PublicKey = new web3.PublicKey(PROGRAM_ADDRESS)
-  ) {
+  static gpaBuilder(programId = new web3.PublicKey(PROGRAM_ADDRESS)) {
     return beetBBA.GpaBuilder.fromStruct(programId, tokenSwapBeet);
   }
 
@@ -155,34 +151,36 @@ export class TokenSwap implements TokenSwapArgs {
 
   /**
    * Returns the byteSize of a {@link Buffer} holding the serialized data of
-   * {@link TokenSwap} - note this is a rough estimate
+   * {@link TokenSwap} for the provided args.
+   *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
    */
-  static get byteSize() {
-    return 500; // Rough estimate due to variable size fields
+  static byteSize(args: TokenSwapArgs) {
+    const instance = TokenSwap.fromArgs(args);
+    return tokenSwapBeet.toFixedFromValue({
+      accountDiscriminator: 1,
+      ...instance,
+    }).byteSize;
   }
 
   /**
    * Fetches the minimum balance needed to exempt an account holding
    * {@link TokenSwap} data from rent
    *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
    * @param connection used to retrieve the rent exemption information
    */
   static async getMinimumBalanceForRentExemption(
+    args: TokenSwapArgs,
     connection: web3.Connection,
     commitment?: web3.Commitment
   ): Promise<number> {
     return connection.getMinimumBalanceForRentExemption(
-      TokenSwap.byteSize,
+      TokenSwap.byteSize(args),
       commitment
     );
-  }
-
-  /**
-   * Determines if the provided {@link Buffer} has the correct byte size to
-   * hold {@link TokenSwap} data.
-   */
-  static hasCorrectByteSize(buf: Buffer, offset = 0) {
-    return buf.byteLength - offset >= TokenSwap.byteSize;
   }
 
   /**

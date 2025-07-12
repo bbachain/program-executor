@@ -4,7 +4,6 @@ import * as beet from '@bbachain/beet';
  * WithdrawAllTokenTypes instruction arguments
  *
  * @category userTypes
- * @category generated
  */
 export type WithdrawAllTokenTypesArgs = {
   poolTokenAmount: beet.bignum;
@@ -14,7 +13,6 @@ export type WithdrawAllTokenTypesArgs = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const withdrawAllTokenTypesArgsBeet =
   new beet.FixableBeetArgsStruct<WithdrawAllTokenTypesArgs>(

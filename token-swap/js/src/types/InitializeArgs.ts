@@ -6,7 +6,6 @@ import { SwapCurve, swapCurveBeet } from './SwapCurve';
  * Initialize instruction arguments
  *
  * @category userTypes
- * @category generated
  */
 export type InitializeArgs = {
   fees: Fees;
@@ -15,7 +14,6 @@ export type InitializeArgs = {
 
 /**
  * @category userTypes
- * @category generated
  */
 export const initializeArgsBeet =
   new beet.FixableBeetArgsStruct<InitializeArgs>(
