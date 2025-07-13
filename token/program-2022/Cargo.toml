@@ -22,8 +22,8 @@ bytemuck = { version = "1.7.2", features = ["derive"] }
 num-derive = "0.3"
 num-traits = "0.2"
 num_enum = "0.5.4"
-solana-program = {version = "0.1.4", path = "../../../bbachain/sdk/program"}
-solana-zk-token-sdk = {version = "0.1.4", path = "../../../bbachain/zk-token-sdk"}
+solana-program = {version = "0.1.5", path = "../../../bbachain/sdk/program"}
+solana-zk-token-sdk = {version = "0.1.5", path = "../../../bbachain/zk-token-sdk"}
 spl-memo = { version = "3.0.1", path = "../../memo/program", features = [ "no-entrypoint" ] }
 spl-token = { version = "3.5",  path = "../program", features = ["no-entrypoint"] }
 thiserror = "1.0"
@@ -34,8 +34,8 @@ serde_with = { version = "1.14.0", optional = true }
 lazy_static = "1.4.0"
 proptest = "1.0"
 serial_test = "0.5.1"
-solana-program-test = {version = "0.1.4", path = "../../../bbachain/program-test"}
-solana-sdk = {version = "0.1.4", path = "../../../bbachain/sdk"}
+solana-program-test = {version = "0.1.5", path = "../../../bbachain/program-test"}
+solana-sdk = {version = "0.1.5", path = "../../../bbachain/sdk"}
 serde_json = "1.0.81"
 
 [lib]

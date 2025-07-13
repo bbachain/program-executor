@@ -10,11 +10,11 @@ edition = "2018"
 [dependencies]
 chrono = "0.4.19"
 clap = "2.33.3"
-solana-clap-utils = {version = "0.1.4", path = "../../../bbachain/clap-utils"}
-solana-cli-config = {version = "0.1.4", path = "../../../bbachain/cli-config"}
-solana-client = {version = "0.1.4", path = "../../../bbachain/client"}
-solana-logger = {version = "0.1.4", path = "../../../bbachain/logger"}
-solana-sdk = {version = "0.1.4", path = "../../../bbachain/sdk"}
+solana-clap-utils = {version = "0.1.5", path = "../../../bbachain/clap-utils"}
+solana-cli-config = {version = "0.1.5", path = "../../../bbachain/cli-config"}
+solana-client = {version = "0.1.5", path = "../../../bbachain/client"}
+solana-logger = {version = "0.1.5", path = "../../../bbachain/logger"}
+solana-sdk = {version = "0.1.5", path = "../../../bbachain/sdk"}
 spl-feature-proposal = { version = "1.0", path = "../program", features = ["no-entrypoint"] }
 
 [[bin]]

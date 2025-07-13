@@ -18,15 +18,15 @@ indicatif = "0.16.2"
 serde = "1.0.130"
 serde_derive = "1.0.103"
 serde_json = "1.0.68"
-solana-account-decoder = {version = "0.1.4", path = "../../../bbachain/account-decoder"}
-solana-clap-utils = {version = "0.1.4", path = "../../../bbachain/clap-utils"}
-solana-cli-config = {version = "0.1.4", path = "../../../bbachain/cli-config"}
-solana-cli-output = {version = "0.1.4", path = "../../../bbachain/cli-output"}
-solana-client = {version = "0.1.4", path = "../../../bbachain/client"}
-solana-logger = {version = "0.1.4", path = "../../../bbachain/logger"}
-solana-remote-wallet = {version = "0.1.4", path = "../../../bbachain/remote-wallet"}
-solana-sdk = {version = "0.1.4", path = "../../../bbachain/sdk"}
-solana-transaction-status = {version = "0.1.4", path = "../../../bbachain/transaction-status"}
+solana-account-decoder = {version = "0.1.5", path = "../../../bbachain/account-decoder"}
+solana-clap-utils = {version = "0.1.5", path = "../../../bbachain/clap-utils"}
+solana-cli-config = {version = "0.1.5", path = "../../../bbachain/cli-config"}
+solana-cli-output = {version = "0.1.5", path = "../../../bbachain/cli-output"}
+solana-client = {version = "0.1.5", path = "../../../bbachain/client"}
+solana-logger = {version = "0.1.5", path = "../../../bbachain/logger"}
+solana-remote-wallet = {version = "0.1.5", path = "../../../bbachain/remote-wallet"}
+solana-sdk = {version = "0.1.5", path = "../../../bbachain/sdk"}
+solana-transaction-status = {version = "0.1.5", path = "../../../bbachain/transaction-status"}
 spl-token = { version = "3.5", path="../program", features = [ "no-entrypoint" ] }
 spl-token-2022 = { version = "0.4", path="../program-2022", features = [ "no-entrypoint" ] }
 spl-token-client = { version = "0.1", path="../client" }
@@ -37,7 +37,7 @@ strum_macros = "0.24"
 tokio = "1.14"
 
 [dev-dependencies]
-solana-test-validator = {version = "0.1.4", path = "../../../bbachain/test-validator"}
+solana-test-validator = {version = "0.1.5", path = "../../../bbachain/test-validator"}
 assert_cmd = "2.0.4"
 serial_test = "0.8.0"
 tempfile = "3.3.0"
