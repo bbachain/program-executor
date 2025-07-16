@@ -37,10 +37,9 @@ import {
   createConstantProductCurve,
 } from '../src';
 
-// BBAChain configuration with NATIVE_MINT
-// const connection = new Connection('http://localhost:8899', 'confirmed');
+// Connect to BBAChain
 const connection = new Connection(
-  'https://api-testnet.bbachain.com',
+  'http://localhost:8899', // Replace with your BBAChain testnet RPC endpoint
   'confirmed'
 );
 

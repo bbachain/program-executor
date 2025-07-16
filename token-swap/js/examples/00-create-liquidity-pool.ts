@@ -81,9 +81,9 @@ async function createTokenAccountManual(
  */
 
 async function createLiquidityPoolExample() {
-  // Connect to BBAChain testnet
+  // Connect to BBAChain
   const connection = new Connection(
-    'https://api-testnet.bbachain.com',
+    'http://localhost:8899', // Replace with your BBAChain testnet RPC endpoint
     'confirmed'
   );
 
